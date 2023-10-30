@@ -2,6 +2,8 @@
 
 #include "game.h"
 
+int t = 0;
+
 //打印选择菜单
 void menu()
 {
@@ -70,6 +72,9 @@ void SetMine(char mine[IROW][ICOL], char show[IROW][ICOL], char fakebool[IROW][I
 	//仿布尔类型标记
 	fakebool[r0][c0] = '1';
 
+	//时间戳
+	t = time(NULL);
+
 	//获取随机坐标放雷
 	while (num != MINES)
 	{
@@ -109,23 +114,25 @@ void FindMine(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][
 		//输入排查目标
 		do
 		{
+			system("CLS");
 			if (!(1 <= row && ROW >= row && 1 <= col && COL >= col))
 			{
 				system("CLS");
 				DisplayBoard(show, IROW, ICOL);
 				printf("此坐标有问题，重新输入\n");
 			}
-			system("CLS");
 			DisplayBoard(show, IROW, ICOL);
 			//DisplayBoard(mine, IROW, ICOL);////////test
 			printf("请输入坐标（先行后列，空格分隔，回车结尾）：");
 			scanf("%d %d", &row, &col);
 		} while (!(1 <= row && ROW >= row && 1 <= col && COL >= col));
+
 		//判断雷况
 		if (mine[row][col] == '1')
 		{
 			system("CLS");
 			printf("你被炸死啦！！！\n");
+			printf("用时%d秒\n", time(NULL) - t);
 			printf("雷区情况如下：\n");
 			DisplayBoard(mine, IROW, ICOL);
 			printf("10秒后将回到标题画面...\n");
@@ -146,6 +153,7 @@ void FindMine(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][
 	{
 		system("CLS");
 		printf("你成功啦！\n");
+		printf("用时%d秒\n", time(NULL) - t);
 		printf("10秒后回到标题画面...\n");
 		DisplayBoard(show, IROW, ICOL);
 		Sleep(10000);
