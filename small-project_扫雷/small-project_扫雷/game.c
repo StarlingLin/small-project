@@ -117,7 +117,7 @@ void FindMine(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][
 			}
 			system("CLS");
 			DisplayBoard(show, IROW, ICOL);
-			DisplayBoard(mine, IROW, ICOL);////////test
+			//DisplayBoard(mine, IROW, ICOL);////////test
 			printf("请输入坐标（先行后列，空格分隔，回车结尾）：");
 			scanf("%d %d", &row, &col);
 		} while (!(1 <= row && ROW >= row && 1 <= col && COL >= col));
