@@ -118,7 +118,6 @@ void FindMine(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][
 			if (!(1 <= row && ROW >= row && 1 <= col && COL >= col))
 			{
 				system("CLS");
-				DisplayBoard(show, IROW, ICOL);
 				printf("此坐标有问题，重新输入\n");
 			}
 			DisplayBoard(show, IROW, ICOL);
