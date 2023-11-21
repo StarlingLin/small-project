@@ -8,15 +8,15 @@
 #include <time.h>
 #include <Windows.h>
 
-//É¨À×ÐÐÊýÓëÁÐÊý£¬ÖÁ¶àÎªÁ½Î»Êý
+//É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Î»ï¿½ï¿½
 #define ROW 9
 #define COL 9
 
-//Êý×éÊµ¼Ê´óÐ¡£¨¿¼ÂÇ±ß¼Ê£©
+//ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ß¼Ê£ï¿½
 #define IROW ROW + 2
 #define ICOL COL + 2
 
-//À×µÄÊýÁ¿£¨²»ÄÜÌ«¶à»á³öbug£¬Ó¦Ê¹À×Êý±È×Ü¸ñÊýÖÁÉÙÉÙ¾Å¸ö£©
+//ï¿½×µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½bugï¿½ï¿½Ó¦Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¾Å¸ï¿½ï¿½ï¿½
 #define MINES 10
 
 void menu();
@@ -24,6 +24,6 @@ void InitBoard(char arr[IROW][ICOL], int, int, char);
 void DisplayBoard(char arr[IROW][ICOL], int, int);
 void SetMine(char arr1[IROW][ICOL], char arr2[IROW][ICOL], char arr3[IROW][ICOL]);
 int GetMine(char arr[IROW][ICOL], int, int);
-void FineMine(char arr1[IROW][ICOL], char arr2[IROW][ICOL], char arr3[IROW][ICOL]);
+void FindMine(char arr1[IROW][ICOL], char arr2[IROW][ICOL], char arr3[IROW][ICOL]);
 void ShowArea(char arr1[IROW][ICOL], char arr2[IROW][ICOL], char arr3[IROW][ICOL]);
 int Detected(char arr[IROW][ICOL]);
