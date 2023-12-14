@@ -4,16 +4,16 @@
 
 int t = 0;
 
-//´òÓ¡Ñ¡Ôñ²Ëµ¥
+//æ‰“å°é€‰æ‹©èœå•
 void menu()
 {
 	printf("****************\n");
-	printf("***1.¿ªÊ¼ÓÎÏ·***\n");
-	printf("***0.½áÊøÓÎÏ·***\n");
+	printf("***1.å¼€å§‹æ¸¸æˆ***\n");
+	printf("***0.ç»“æŸæ¸¸æˆ***\n");
 	printf("****************\n");
 }
 
-//³õÊ¼»¯Êı×é£¨ÓÃ×Ö·ûÌî³ä£©
+//åˆå§‹åŒ–æ•°ç»„ï¼ˆç”¨å­—ç¬¦å¡«å……ï¼‰
 void InitBoard(char arr[IROW][ICOL], int row, int col, char ch)
 {
 	for (int i = 0; i < row; i++)
@@ -21,7 +21,7 @@ void InitBoard(char arr[IROW][ICOL], int row, int col, char ch)
 			arr[i][j] = ch;
 }
 
-//Õ¹Ê¾Ãæ°æ£¨´òÓ¡Êı×é£©
+//å±•ç¤ºé¢ç‰ˆï¼ˆæ‰“å°æ•°ç»„ï¼‰
 void DisplayBoard(char arr[IROW][ICOL], int row, int col)
 {
 	for (int i = 0; i < col - 1; i++)
@@ -43,45 +43,45 @@ void DisplayBoard(char arr[IROW][ICOL], int row, int col)
 }
 
 
-//À×Çø³õÊ¼»¯£¨È·±£µÚÒ»²½ÖÜÎ§Ã»ÓĞÀ×£©
+//é›·åŒºåˆå§‹åŒ–ï¼ˆç¡®ä¿ç¬¬ä¸€æ­¥å‘¨å›´æ²¡æœ‰é›·ï¼‰
 void SetMine(char mine[IROW][ICOL], char show[IROW][ICOL], char fakebool[IROW][ICOL])
 {
-	//µÚÒ»²½ÅÅÀ×µã´¢´æÔÚr0¡¢c0
+	//ç¬¬ä¸€æ­¥æ’é›·ç‚¹å‚¨å­˜åœ¨r0ã€c0
 	int r0 = 1;
 	int c0 = 1;
-	//ÓÃÓÚ´¢´æËæ»úÊıµÄ±äÁ¿
+	//ç”¨äºå‚¨å­˜éšæœºæ•°çš„å˜é‡
 	int randrow = 0;
 	int randcol = 0;
-	//ÒÑ¾­·ÅÖÃÀ×Êı
+	//å·²ç»æ”¾ç½®é›·æ•°
 	int num = 0;
 
-	//»ñµÃµÚÒ»²½ÊäÈë
+	//è·å¾—ç¬¬ä¸€æ­¥è¾“å…¥
 	do
 	{
 		if (!(1 <= r0 && ROW >= r0 && 1 <= c0 && COL >= c0))
 		{
 			system("CLS");
 			DisplayBoard(show, IROW, ICOL);
-			printf("´Ë×ø±êÓĞÎÊÌâ£¬ÖØĞÂÊäÈë\n");
+			printf("æ­¤åæ ‡æœ‰é—®é¢˜ï¼Œé‡æ–°è¾“å…¥\n");
 		}
-		printf("Ñ¡¶¨ÄãµÄµÚÒ»¸öÅÅ²éÇø\n");
-		printf("ÇëÊäÈë×ø±ê£¨ÏÈĞĞºóÁĞ£¬¿Õ¸ñ·Ö¸ô£¬»Ø³µ½áÎ²£©£º");
+		printf("é€‰å®šä½ çš„ç¬¬ä¸€ä¸ªæ’æŸ¥åŒº\n");
+		printf("è¯·è¾“å…¥åæ ‡ï¼ˆå…ˆè¡Œååˆ—ï¼Œç©ºæ ¼åˆ†éš”ï¼Œå›è½¦ç»“å°¾ï¼‰ï¼š");
 		scanf("%d %d", &r0, &c0);
 	} while (!(1 <= r0 && ROW >= r0 && 1 <= c0 && COL >= c0));
 
-	//·Â²¼¶ûÀàĞÍ±ê¼Ç
+	//ä»¿å¸ƒå°”ç±»å‹æ ‡è®°
 	fakebool[r0][c0] = '1';
 
-	//Ê±¼ä´Á
+	//æ—¶é—´æˆ³
 	t = time(NULL);
 
-	//»ñÈ¡Ëæ»ú×ø±ê·ÅÀ×
+	//è·å–éšæœºåæ ‡æ”¾é›·
 	while (num != MINES)
 	{
 		randrow = rand() % ROW + 1;
 		randcol = rand() % COL + 1;
 		
-		//Ëæ»ú×ø±ê²»ÄÜÎªÒÑ¾­ÓĞÀ×µÄ¸ñ×Ó£¬Ò²²»ÄÜÊÇµÚÒ»´ÎÅÅÀ×µãËùÔÚ¾Å¹¬¸ñÄÚ
+		//éšæœºåæ ‡ä¸èƒ½ä¸ºå·²ç»æœ‰é›·çš„æ ¼å­ï¼Œä¹Ÿä¸èƒ½æ˜¯ç¬¬ä¸€æ¬¡æ’é›·ç‚¹æ‰€åœ¨ä¹å®«æ ¼å†…
 		if ('0' == mine[randrow][randcol] && !(fabs(randcol - c0) <= 1 && fabs(randrow - r0)<= 1))
 		{
 			mine[randrow][randcol] = '1';
@@ -89,52 +89,52 @@ void SetMine(char mine[IROW][ICOL], char show[IROW][ICOL], char fakebool[IROW][I
 		}
 	}
 
-	//ÏÔÊ¾ÇøÓò
+	//æ˜¾ç¤ºåŒºåŸŸ
 	show[r0][c0] = '0' + GetMine(mine, r0, c0);
 	ShowArea(show, mine, fakebool);
 
 	system("CLS");
 }
 
-//»ñÈ¡ÖÜÎ§À×Êı
+//è·å–å‘¨å›´é›·æ•°
 int GetMine(char mine[IROW][ICOL], int row, int col)
 {
 	return (mine[row - 1][col - 1] + mine[row][col - 1] + mine[row + 1][col - 1]) + mine[row + 1][col] + mine[row - 1][col] + mine[row + 1][col + 1] + mine[row][col + 1] + mine[row - 1][col + 1] - 8 * '0';
 }
 
-//ÕÒÀ×¹ı³Ì
+//æ‰¾é›·è¿‡ç¨‹
 void FindMine(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][ICOL])
 {
-	//´´½¨±äÁ¿´æ´¢Íæ¼ÒÊäÈë
+	//åˆ›å»ºå˜é‡å­˜å‚¨ç©å®¶è¾“å…¥
 	int row = 1;
 	int col = 1;
 	int mines = MINES;
 	do
 	{
-		//ÊäÈëÅÅ²éÄ¿±ê
+		//è¾“å…¥æ’æŸ¥ç›®æ ‡
 		do
 		{
 			system("CLS");
 			if (!(1 <= row && ROW >= row && 1 <= col && COL >= col))
 			{
 				system("CLS");
-				printf("´Ë×ø±êÓĞÎÊÌâ£¬ÖØĞÂÊäÈë\n");
+				printf("æ­¤åæ ‡æœ‰é—®é¢˜ï¼Œé‡æ–°è¾“å…¥\n");
 			}
 			DisplayBoard(show, IROW, ICOL);
 			//DisplayBoard(mine, IROW, ICOL);////////test
-			printf("ÇëÊäÈë×ø±ê£¨ÏÈĞĞºóÁĞ£¬¿Õ¸ñ·Ö¸ô£¬»Ø³µ½áÎ²£©£º");
+			printf("è¯·è¾“å…¥åæ ‡ï¼ˆå…ˆè¡Œååˆ—ï¼Œç©ºæ ¼åˆ†éš”ï¼Œå›è½¦ç»“å°¾ï¼‰ï¼š");
 			scanf("%d %d", &row, &col);
 		} while (!(1 <= row && ROW >= row && 1 <= col && COL >= col));
 
-		//ÅĞ¶ÏÀ×¿ö
+		//åˆ¤æ–­é›·å†µ
 		if (mine[row][col] == '1')
 		{
 			system("CLS");
-			printf("Äã±»Õ¨ËÀÀ²£¡£¡£¡\n");
-			printf("ÓÃÊ±%dÃë\n", time(NULL) - t);
-			printf("À×ÇøÇé¿öÈçÏÂ£º\n");
+			printf("ä½ è¢«ç‚¸æ­»å•¦ï¼ï¼ï¼\n");
+			printf("ç”¨æ—¶%dç§’\n", time(NULL) - t);
+			printf("é›·åŒºæƒ…å†µå¦‚ä¸‹ï¼š\n");
 			DisplayBoard(mine, IROW, ICOL);
-			printf("10Ãëºó½«»Øµ½±êÌâ»­Ãæ...\n");
+			printf("10ç§’åå°†å›åˆ°æ ‡é¢˜ç”»é¢...\n");
 			Sleep(10000);
 			system("CLS");
 			break;
@@ -147,31 +147,31 @@ void FindMine(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][
 		}
 	} while (Detected(show) != ROW * COL - MINES);
 
-	//Ê¤Àû½áËã
+	//èƒœåˆ©ç»“ç®—
 	if (Detected(show) == ROW * COL - MINES)
 	{
 		system("CLS");
-		printf("Äã³É¹¦À²£¡\n");
-		printf("ÓÃÊ±%dÃë\n", time(NULL) - t);
-		printf("10Ãëºó»Øµ½±êÌâ»­Ãæ...\n");
+		printf("ä½ æˆåŠŸå•¦ï¼\n");
+		printf("ç”¨æ—¶%dç§’\n", time(NULL) - t);
+		printf("10ç§’åå›åˆ°æ ‡é¢˜ç”»é¢...\n");
 		DisplayBoard(show, IROW, ICOL);
 		Sleep(10000);
 	}
 }
 
-//ÏÔÊ¾Ò»Æ¬ÇøÓò
+//æ˜¾ç¤ºä¸€ç‰‡åŒºåŸŸ
 void ShowArea(char show[IROW][ICOL], char mine[IROW][ICOL], char fakebool[IROW][ICOL])
 {
-	_Bool flag = false;//ÓÃÓÚ±ê¼ÇÑ­»·ÊÇ·ñÓĞÒâÒå£¬ÊÇ·ñÌø³ö
+	_Bool flag = false;//ç”¨äºæ ‡è®°å¾ªç¯æ˜¯å¦æœ‰æ„ä¹‰ï¼Œæ˜¯å¦è·³å‡º
 	
 	do
 	{
-		flag = false;//Ã¿ÂÖÑ­»·³õÊ¼ÈÏÎªÎŞÒâÒå
+		flag = false;//æ¯è½®å¾ªç¯åˆå§‹è®¤ä¸ºæ— æ„ä¹‰
 		for (int i = 1; i <= ROW; i++)
 			for (int j = 1; j <= COL; j++)
-				//ÉÏÏÂ×óÓÒµÄÎ±²¼¶ûÖµÎª1ÇÒ×Ô¼º²»ÊÇÀ×ÇÒ×Ô¼º²¼¶ûÖµ²»Îª1ÇÒÖÜÎ§ÖÁÉÙÓĞÒ»¸öshowÖµÎª0Ôò×Ô¼ºµÄÎ±²¼¶ûÖµÒ²ÉèÎª1
+				//ä¸Šä¸‹å·¦å³çš„ä¼ªå¸ƒå°”å€¼ä¸º1ä¸”è‡ªå·±ä¸æ˜¯é›·ä¸”è‡ªå·±å¸ƒå°”å€¼ä¸ä¸º1ä¸”å‘¨å›´è‡³å°‘æœ‰ä¸€ä¸ªshowå€¼ä¸º0åˆ™è‡ªå·±çš„ä¼ªå¸ƒå°”å€¼ä¹Ÿè®¾ä¸º1
 				if ((fakebool[i][j - 1] == '1' || fakebool[i - 1][j] == '1' || fakebool[i + 1][j] == '1' || fakebool[i][j + 1] == '1') && mine[i][j] != '1' && fakebool[i][j] != '1' && !(show[i - 1][j] != '0' && show[i + 1][j] != '0' && show[i][j - 1] != '0' && show[i][j + 1] != '0' && show[i+1][j+1] != '0'&& show[i-1][j-1] != '0'&& show[i+1][j-1] != '0'&& show[i-1][j+1] != '0'))
-					fakebool[i][j] = '1', flag = true, show[i][j] = '0' + GetMine(mine, i, j);;//Èô·¢Éú¸Ä±ä£¬ÈÏÎª±¾ÂÖÑ­»·ÓĞÒâÒå//½«Î±²¼¶ûÖµ±ê¼ÇÎªÓ¦¸ÃÏÔÊ¾µÄ¸ñ×ÓÔÚshowÖĞÏÔÊ¾
+					fakebool[i][j] = '1', flag = true, show[i][j] = '0' + GetMine(mine, i, j);;//è‹¥å‘ç”Ÿæ”¹å˜ï¼Œè®¤ä¸ºæœ¬è½®å¾ªç¯æœ‰æ„ä¹‰//å°†ä¼ªå¸ƒå°”å€¼æ ‡è®°ä¸ºåº”è¯¥æ˜¾ç¤ºçš„æ ¼å­åœ¨showä¸­æ˜¾ç¤º
 	} while (flag);
 }
 
