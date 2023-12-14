@@ -9,7 +9,7 @@ void game()
 	char fakebool[IROW][ICOL];
 	InitBoard(mine, IROW, ICOL, '0');
 	InitBoard(show, IROW, ICOL, '*');
-	//ÉèÒ»¸öÎ±²¼¶ûÖµ£¬ÓÃÓÚ±ê¼ÇÄÄĞ©¸ñ×ÓÓ¦¸Ã±»ÏÔÊ¾³öÀ´
+	//è®¾ä¸€ä¸ªä¼ªå¸ƒå°”å€¼ï¼Œç”¨äºæ ‡è®°å“ªäº›æ ¼å­åº”è¯¥è¢«æ˜¾ç¤ºå‡ºæ¥
 	InitBoard(fakebool, IROW, ICOL, '0');
 	DisplayBoard(show, IROW, ICOL);
 	//DisplayBoard(mine, IROW, ICOL);
@@ -32,7 +32,7 @@ int main()
 		{
 		case 1: system("CLS"); game(); break;
 		case 0: system("CLS"); break;
-		default: system("CLS"); printf("Ñ¡ÔñºÏÀíµÄÖµ\n"); break;
+		default: system("CLS"); printf("é€‰æ‹©åˆç†çš„å€¼\n"); break;
 		}
 	} while (input);
 	return 0;
