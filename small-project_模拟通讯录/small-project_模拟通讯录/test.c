@@ -42,13 +42,13 @@ int main()
 			AddContact(&con);
 			break;
 		case DEL:
-			//DelContact();
+			DelContact(&con);
 			break;
 		case SEARCH:
 			//SearchContact();
 			break;
 		case MODIFY:
-			//ModifyContact();
+			ModifyContact(&con);
 			break;
 		case SHOW:
 			ShowContact(&con);

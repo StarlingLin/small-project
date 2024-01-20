@@ -44,13 +44,67 @@ void AddContact(Contact* pc)
 	//保存到通讯录中
 	SLPushBack(pc, info);
 	printf("添加联系人成功！\n");
-	Sleep(1000);
+	system("pause");
 	system("cls");
 }
 //删
-
+void DelContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	//删除联系人
+	printf("请输入要删除的联系人姓名:>");
+	char name[NAME_MAX];
+	scanf("%s", name);
+	int pos = FindByName(pc, name);
+	if (pos == -1)
+	{
+		printf("要删除的联系人不存在！\n");
+	}
+	else
+	{
+		SLRemove(pc, pos);
+		printf("删除联系人成功！\n");
+	}
+	system("pause");
+	system("cls");
+}
 //改
-
+void ModifyContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	//修改联系人
+	printf("请输入要修改的联系人姓名:>");
+	char name[NAME_MAX];
+	scanf("%s", name);
+	int pos = FindByName(pc, name);
+	if (pos == -1)
+	{
+		printf("要修改的联系人不存在！\n");
+	}
+	else
+	{
+		Info temp;
+		system("cls");
+		printf("请输入更改后联系人姓名:>");
+		scanf("%s", temp.name);
+		printf("请输入更改后联系人性别:>");
+		scanf("%s", temp.gender);
+		printf("请输入更改后联系人年龄:>");
+		scanf("%d", &temp.age);
+		printf("请输入更改后联系人电话:>");
+		scanf("%s", temp.tele);
+		printf("请输入更改后联系人地址:>");
+		scanf("%s", temp.addr);
+		printf("请输入更改后联系人邮箱:>");
+		scanf("%s", temp.mail);
+		SLModifyByPos(pc, pos, temp);
+		printf("修改联系人成功！\n");
+	}
+	system("pause");
+	system("cls");
+}
 //查
 
 //看
@@ -78,4 +132,22 @@ void ShowContact(Contact* pc)
 	printf("打印完成。\n");
 	system("pause");
 	system("cls");
+}
+//清
+
+
+//通过姓名查找联系人
+int FindByName(Contact* pc, char* name)
+{
+	//断言
+	assert(pc);
+	//遍历通讯录
+	for (int i = 0; i < pc->size; ++i)
+	{
+		if (strcmp(pc->arr[i].name, name) == 0)
+		{
+			return i;
+		}
+	}
+	return -1;
 }
