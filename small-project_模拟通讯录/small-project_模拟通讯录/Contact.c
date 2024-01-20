@@ -64,21 +64,18 @@ void ShowContact(Contact* pc)
 	printf("*******************************\n");
 	printf("**********联系人信息***********\n");
 	printf("*******************************\n");
-	printf("姓名 性别 年龄 电话 地址 邮箱\n");
-	for (int i = 0; i < pc->size; i++)
+	for (int i = 0; i < pc->size; ++i)
 	{
-		printf("%s %s %d %s %s %s\n",
-			pc->arr[i].name,
-			pc->arr[i].gender,
-			pc->arr[i].age,
-			pc->arr[i].tele,
-			pc->arr[i].addr,
-			pc->arr[i].mail
-		);
+		printf("姓名：%s\n", pc->arr[i].name);
+		printf("性别：%s\n", pc->arr[i].gender);
+		printf("年龄：%d\n", pc->arr[i].age);
+		printf("电话：%s\n", pc->arr[i].tele);
+		printf("地址：%s\n", pc->arr[i].addr);
+		printf("邮箱：%s\n", pc->arr[i].mail);
+		printf("*******************************\n");
 	}
 	printf("*******************************\n");
-	printf("*******************************\n");
-	printf("打印完成，按任意键以继续...\n");
+	printf("打印完成。\n");
 	system("pause");
 	system("cls");
 }

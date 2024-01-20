@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define NAME_MAX 50
+#define NAME_MAX 20
 #define GENDER_MAX 10
 #define TELE_MAX 15
 #define ADDR_MAX 100
