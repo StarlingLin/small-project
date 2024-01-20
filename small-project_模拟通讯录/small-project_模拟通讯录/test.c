@@ -28,7 +28,7 @@ void ContactMenu()
 
 int main()
 {
-	int op = 0;	//用于记录用户的操作
+	int op = EXIT;	//用于记录用户的操作
 	Contact con;	//定义通讯录
 	InitContact(&con);	//初始化通讯录
 	do {
@@ -45,7 +45,7 @@ int main()
 			DelContact(&con);
 			break;
 		case SEARCH:
-			//SearchContact();
+			SearchContact(&con);
 			break;
 		case MODIFY:
 			ModifyContact(&con);
@@ -54,7 +54,7 @@ int main()
 			ShowContact(&con);
 			break;
 		case CLEAR:
-			//ClearContact();
+			ClearContact(&con);
 			break;
 		case EXIT:
 			printf("退出通讯录。\n");
@@ -67,18 +67,3 @@ int main()
 	DestroyContact(&con);	//销毁通讯录
 	return EXIT_SUCCESS;
 }
-
-//int main()	//测试通讯录
-//{
-//	Contact con;
-//	InitContact(&con);
-//	AddContact(&con);
-//	AddContact(&con);
-//
-//
-//
-//
-//
-//	DestroyContact(&con);
-//	return EXIT_SUCCESS;
-//}

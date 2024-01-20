@@ -28,6 +28,10 @@ typedef struct SeqList Contact;
 void InitContact(Contact* pc);
 //销毁通讯录
 void DestroyContact(Contact* pc);
+//加载通讯录
+void LoadContact(Contact* pc);
+//保存通讯录
+void SaveContact(Contact* pc);
 
 //增删改查看清
 //增

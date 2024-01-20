@@ -9,14 +9,69 @@ void InitContact(Contact* pc)
 	//断言
 	assert(pc);
 	SLInit(pc);
+	LoadContact(pc);
 }
 //销毁通讯录
 void DestroyContact(Contact* pc)
 {
 	//断言
 	assert(pc);
+	SaveContact(pc);
 	SLDestory(pc);
 }
+//加载通讯录
+void LoadContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	//从文件中读取通讯录
+	FILE* pf = fopen("contact.dat", "rb");
+	if (pf == NULL)
+	{
+		printf("加载通讯录失败！\n");
+	}
+	else
+	{
+		//读取通讯录中的数据
+		Info temp;
+		while (fread(&temp, sizeof(Info), 1, pf))
+		{
+			SLPushBack(pc, temp);
+		}
+		fclose(pf);
+		pf = NULL;
+		printf("加载通讯录成功！\n");
+	}
+	system("pause");
+	system("cls");
+}
+//保存通讯录
+void SaveContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	//将通讯录中的数据保存到文件中
+	FILE* pf = fopen("contact.dat", "wb");
+	if (pf == NULL)
+	{
+		printf("保存通讯录失败！\n");
+	}
+	else
+	{
+		//写入通讯录中的数据
+		for (int i = 0; i < pc->size; ++i)
+		{
+			fwrite(&pc->arr[i], sizeof(Info), 1, pf);
+		}
+		fclose(pf);
+		pf = NULL;
+		printf("保存通讯录成功！\n");
+	}
+	system("pause");
+	system("cls");
+}
+
+
 
 //增删改查看清
 //增
@@ -106,7 +161,37 @@ void ModifyContact(Contact* pc)
 	system("cls");
 }
 //查
-
+void SearchContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	//查找联系人
+	printf("请输入要查找的联系人姓名:>");
+	char name[NAME_MAX];
+	scanf("%s", name);
+	int pos = FindByName(pc, name);
+	if (pos == -1)
+	{
+		printf("要查找的联系人不存在！\n");
+	}
+	else
+	{
+		system("cls");
+		printf("*******************************\n");
+		printf("**********联系人信息***********\n");
+		printf("*******************************\n");
+		printf("姓名：%s\n", pc->arr[pos].name);
+		printf("性别：%s\n", pc->arr[pos].gender);
+		printf("年龄：%d\n", pc->arr[pos].age);
+		printf("电话：%s\n", pc->arr[pos].tele);
+		printf("地址：%s\n", pc->arr[pos].addr);
+		printf("邮箱：%s\n", pc->arr[pos].mail);
+		printf("*******************************\n");
+		printf("*******************************\n");
+	}
+	system("pause");
+	system("cls");
+}
 //看
 void ShowContact(Contact* pc)
 {
@@ -118,15 +203,22 @@ void ShowContact(Contact* pc)
 	printf("*******************************\n");
 	printf("**********联系人信息***********\n");
 	printf("*******************************\n");
-	for (int i = 0; i < pc->size; ++i)
+	if (pc->size == 0)
 	{
-		printf("姓名：%s\n", pc->arr[i].name);
-		printf("性别：%s\n", pc->arr[i].gender);
-		printf("年龄：%d\n", pc->arr[i].age);
-		printf("电话：%s\n", pc->arr[i].tele);
-		printf("地址：%s\n", pc->arr[i].addr);
-		printf("邮箱：%s\n", pc->arr[i].mail);
-		printf("*******************************\n");
+		printf("**********通讯录为空！*********\n");
+	}
+	else
+	{
+		for (int i = 0; i < pc->size; ++i)
+		{
+			printf("姓名：%s\n", pc->arr[i].name);
+			printf("性别：%s\n", pc->arr[i].gender);
+			printf("年龄：%d\n", pc->arr[i].age);
+			printf("电话：%s\n", pc->arr[i].tele);
+			printf("地址：%s\n", pc->arr[i].addr);
+			printf("邮箱：%s\n", pc->arr[i].mail);
+			printf("*******************************\n");
+		}
 	}
 	printf("*******************************\n");
 	printf("打印完成。\n");
@@ -134,7 +226,19 @@ void ShowContact(Contact* pc)
 	system("cls");
 }
 //清
-
+void ClearContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	//清空通讯录
+	printf("正在清空通讯录...\n");
+	Sleep(1000);
+	system("cls");
+	pc->size = 0;
+	printf("清空通讯录成功！\n");
+	system("pause");
+	system("cls");
+}
 
 //通过姓名查找联系人
 int FindByName(Contact* pc, char* name)
