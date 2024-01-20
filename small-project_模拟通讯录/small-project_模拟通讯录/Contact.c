@@ -30,10 +30,10 @@ void AddContact(Contact* pc)
 	//初始化
 	printf("请输入联系人姓名:>");
 	scanf("%s", info.name);
-	printf("请输入联系人年龄:>");
-	scanf("%d", &info.age);
 	printf("请输入联系人性别:>");
 	scanf("%s", info.gender);
+	printf("请输入联系人年龄:>");
+	scanf("%d", &info.age);
 	printf("请输入联系人电话:>");
 	scanf("%s", info.tele);
 	printf("请输入联系人地址:>");
@@ -45,5 +45,40 @@ void AddContact(Contact* pc)
 	SLPushBack(pc, info);
 	printf("添加联系人成功！\n");
 	Sleep(1000);
+	system("cls");
+}
+//删
+
+//改
+
+//查
+
+//看
+void ShowContact(Contact* pc)
+{
+	//断言
+	assert(pc);
+	printf("正在打印联系人...\n");
+	Sleep(1000);
+	system("cls");
+	printf("*******************************\n");
+	printf("**********联系人信息***********\n");
+	printf("*******************************\n");
+	printf("姓名 性别 年龄 电话 地址 邮箱\n");
+	for (int i = 0; i < pc->size; i++)
+	{
+		printf("%s %s %d %s %s %s\n",
+			pc->arr[i].name,
+			pc->arr[i].gender,
+			pc->arr[i].age,
+			pc->arr[i].tele,
+			pc->arr[i].addr,
+			pc->arr[i].mail
+		);
+	}
+	printf("*******************************\n");
+	printf("*******************************\n");
+	printf("打印完成，按任意键以继续...\n");
+	system("pause");
 	system("cls");
 }

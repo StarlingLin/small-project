@@ -23,6 +23,7 @@ void ContactMenu()
 	printf("****  5. 显示     6. 清空  ****\n");
 	printf("****  0. 保存并退出        ****\n");
 	printf("*******************************\n");
+	printf("*******************************\n");
 }
 
 int main()
@@ -50,7 +51,7 @@ int main()
 			//ModifyContact();
 			break;
 		case SHOW:
-			//ShowContact();
+			ShowContact(&con);
 			break;
 		case CLEAR:
 			//ClearContact();

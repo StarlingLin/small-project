@@ -13,8 +13,8 @@
 typedef struct PersonInfo
 {
 	char name[NAME_MAX];
-	int age;
 	char gender[GENDER_MAX];
+	int age;
 	char tele[TELE_MAX];
 	char addr[ADDR_MAX];
 	char mail[MAIL_MAX];
