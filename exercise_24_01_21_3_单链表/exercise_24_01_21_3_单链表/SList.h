@@ -15,7 +15,8 @@ typedef struct SListNode
 } SListNode;
 
 //单链表的初始化
-void SListInit(SListNode** ppList);
+#define SListInit(pList) SListNode* pList = NULL
+
 //单链表的销毁
 void SListDestory(SListNode** ppList);
 

@@ -2,13 +2,6 @@
 
 #include "SList.h"
 
-//单链表的初始化
-void SListInit(SListNode** ppList)
-{
-	//断言
-	assert(ppList);
-	*ppList = NULL;
-}
 //单链表的销毁
 void SListDestory(SListNode** ppList)
 {
