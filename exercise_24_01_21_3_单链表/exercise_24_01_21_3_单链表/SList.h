@@ -14,7 +14,15 @@ typedef struct SListNode
 	struct SListNode* next;
 } SListNode;
 
+//单链表的初始化
+void SListInit(SListNode** ppList);
+//单链表的销毁
+void SListDestory(SListNode** ppList);
 
+//单链表的头插
+void SListPushFront(SListNode** ppList, SLDataType x);
+//单链表的尾插
+void SListPushBack(SListNode** ppList, SLDataType x);
 
 
 
