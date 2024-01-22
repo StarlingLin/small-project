@@ -28,6 +28,11 @@ void SListDestory(SListNode** ppList)
 SListNode* SListBuyNode(SLDataType x)
 {
 	SListNode* newNode = (SListNode*)malloc(sizeof(SListNode));
+	if (newNode == NULL)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	newNode->data = x;
 	newNode->next = NULL;
 	return newNode;
@@ -59,6 +64,37 @@ void SListPushBack(SListNode** ppList, SLDataType x)
 		{
 			cur = cur->next;
 		}
+		cur->next = newNode;
+	}
+}
+
+//单链表指定位置后插入
+void SListInsertAfter(SListNode* pos, SLDataType x)
+{
+	//断言
+	assert(pos);
+	SListNode* newNode = SListBuyNode(x);
+	newNode->next = pos->next;
+	pos->next = newNode;
+}
+//单链表指定位置前插入
+void SListInsertBefore(SListNode** ppList, SListNode* pos, SLDataType x)
+{
+	//断言
+	assert(ppList&&pos);
+	if (*ppList == NULL || *ppList == pos)	//空链表或者pos为头节点
+	{
+		SListPushFront(ppList, x);
+	}
+	else
+	{
+		SListNode* cur = *ppList;
+		while (cur->next != pos)
+		{
+			cur = cur->next;
+		}
+		SListNode* newNode = SListBuyNode(x);
+		newNode->next = cur->next;
 		cur->next = newNode;
 	}
 }
@@ -105,9 +141,107 @@ void SListPopBack(SListNode** ppList)
 	}
 }
 
+//单链表删除指定位置的节点
+void SListErase(SListNode** ppList, SListNode* pos)
+{
+	//断言
+	assert(ppList&&pos);
+	if (*ppList == NULL)
+	{
+		return;
+	}
+	else if (*ppList == pos)
+	{
+		SListPopFront(ppList);
+	}
+	else
+	{
+		SListNode* cur = *ppList;
+		while (cur->next != pos)
+		{
+			cur = cur->next;
+		}
+		cur->next = pos->next;
+		free(pos);
+	}
+}
+//单链表指定位置后删除
+void SListEraseAfter(SListNode* pos)
+{
+	//断言
+	assert(pos);
+	if (pos->next == NULL)
+	{
+		return;
+	}
+	else
+	{
+		SListNode* next = pos->next->next;
+		free(pos->next);
+		pos->next = next;
+	}
+}
+//单链表指定位置前删除
+void SListEraseBefore(SListNode** ppList, SListNode* pos)
+{
+	//断言
+	assert(ppList&&pos);
+	if (*ppList == NULL || *ppList == pos)	//空链表或者pos为头节点
+	{
+		return;
+	}
+	else if ((*ppList)->next == pos)	//pos为第二个节点
+	{
+		SListPopFront(ppList);
+	}
+	else
+	{
+		SListNode* cur = *ppList;
+		while (cur->next->next != pos)
+		{
+			cur = cur->next;
+		}
+		free(cur->next);
+		cur->next = pos;
+	}
+}
 
+//单链表查找
+SListNode* SListFind(SListNode* pList, SLDataType x)
+{
+	//断言
+	assert(pList);
+	SListNode* cur = pList;
+	while (cur)
+	{
+		if (cur->data == x)
+		{
+			return cur;
+		}
+		cur = cur->next;
+	}
+	return NULL;
+}
 
-
+//单链表的长度
+int SListSize(SListNode* pList)
+{
+	//断言
+	assert(pList);
+	int count = 0;
+	SListNode* cur = pList;
+	while (cur)
+	{
+		count++;
+		cur = cur->next;
+	}
+	return count;
+}
+//单链表的判空
+int SListEmpty(SListNode* pList)
+{
+	return pList == NULL ? 1 : 0;
+}
 
 
 

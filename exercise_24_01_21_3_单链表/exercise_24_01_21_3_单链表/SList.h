@@ -24,14 +24,30 @@ void SListPushFront(SListNode** ppList, SLDataType x);
 //单链表的尾插
 void SListPushBack(SListNode** ppList, SLDataType x);
 
+//单链表指定位置后插入
+void SListInsertAfter(SListNode* pos, SLDataType x);
+//单链表指定位置前插入
+void SListInsertBefore(SListNode** ppList, SListNode* pos, SLDataType x);
+
 //单链表的头删
 void SListPopFront(SListNode** ppList);
 //单链表的尾删
 void SListPopBack(SListNode** ppList);
 
+//单链表删除指定位置的节点
+void SListErase(SListNode** ppList, SListNode* pos);
+//单链表指定位置后删除
+void SListEraseAfter(SListNode* pos);
+//单链表指定位置前删除
+void SListEraseBefore(SListNode** ppList, SListNode* pos);
 
+//单链表查找
+SListNode* SListFind(SListNode* pList, SLDataType x);
 
-
+//单链表的长度
+int SListSize(SListNode* pList);
+//单链表的判空
+int SListEmpty(SListNode* pList);
 
 
 
