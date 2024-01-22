@@ -1,3 +1,5 @@
+//不带头单向不循环链表(single linked list)
+
 #pragma once
 
 #include <stdio.h>
@@ -50,8 +52,11 @@ int SListSize(SListNode* pList);
 //单链表的判空
 int SListEmpty(SListNode* pList);
 
-
-
-
 //单链表打印
 void SListPrint(SListNode* pList);
+
+//单链表逆序
+void SListReverse(SListNode** ppList);
+
+//单链表冒泡排序
+//void SListBubbleSort(SListNode* pList);

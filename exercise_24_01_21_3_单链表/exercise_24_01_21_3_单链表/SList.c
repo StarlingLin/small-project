@@ -236,11 +236,6 @@ int SListEmpty(SListNode* pList)
 	return pList == NULL ? 1 : 0;
 }
 
-
-
-
-
-
 //µ•¡¥±Ì¥Ú”°
 void SListPrint(SListNode* pList)
 {
@@ -254,3 +249,36 @@ void SListPrint(SListNode* pList)
 	}
 	printf("NULL\n");
 }
+
+//µ•¡¥±ÌƒÊ–Ú
+void SListReverse(SListNode** ppList)
+{
+	//∂œ—‘
+	assert(ppList);
+	if (*ppList == NULL || (*ppList)->next == NULL)
+	{
+		return;
+	}
+	else
+	{
+		SListNode* cur = *ppList;
+		SListNode* next = cur->next;
+		SListNode* nextNext = next->next;
+		while (next)
+		{
+			next->next = cur;
+			cur = next;
+			next = nextNext;
+			if (nextNext)
+			{
+				nextNext = nextNext->next;
+			}
+		}
+		(*ppList)->next = NULL;
+		*ppList = cur;
+	}
+}
+
+//µ•¡¥±Ì√∞≈›≈≈–Ú
+//void SListBubbleSort(SListNode* pList)
+//{}
