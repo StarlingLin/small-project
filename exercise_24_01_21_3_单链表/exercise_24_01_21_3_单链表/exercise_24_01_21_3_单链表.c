@@ -20,5 +20,16 @@ int main()	//²âÊÔ´úÂë
 	node4->next = node5;
 	node5->next = NULL;
 	SListPrint(node1);
+	SListPushBack(&node1, 6);
+	SListPrint(node1);
+	SListPushFront(&node1, 0);
+	SListPrint(node1);
+	SListPopBack(&node1);
+	SListPrint(node1);
+	SListPopFront(&node1);
+	SListPrint(node1);
+	SListDestory(&node1);
+
+
 	return 0;
 }

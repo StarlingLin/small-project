@@ -24,7 +24,10 @@ void SListPushFront(SListNode** ppList, SLDataType x);
 //单链表的尾插
 void SListPushBack(SListNode** ppList, SLDataType x);
 
-
+//单链表的头删
+void SListPopFront(SListNode** ppList);
+//单链表的尾删
+void SListPopBack(SListNode** ppList);
 
 
 
