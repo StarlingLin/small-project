@@ -199,6 +199,38 @@ void SListEraseBefore(SListNode** ppList, SListNode* pos)
 	}
 }
 
+//单链表删除所有指定值的节点
+void SListRemove(SListNode** ppList, SLDataType x)
+{
+	//断言
+	assert(ppList);
+	if (*ppList == NULL)
+	{
+		return;
+	}
+	else
+	{
+		SListNode* cur = *ppList;
+		while (cur->next)
+		{
+			if (cur->next->data == x)
+			{
+				SListNode* next = cur->next->next;
+				free(cur->next);
+				cur->next = next;
+			}
+			else
+			{
+				cur = cur->next;
+			}
+		}
+		if ((*ppList)->data == x)
+		{
+			SListPopFront(ppList);
+		}
+	}
+}
+
 //单链表查找
 SListNode* SListFind(SListNode* pList, SLDataType x)
 {
@@ -214,6 +246,20 @@ SListNode* SListFind(SListNode* pList, SLDataType x)
 		cur = cur->next;
 	}
 	return NULL;
+}
+//单链表中间节点
+SListNode* SListFindMidNode(SListNode* pList)
+{
+	//断言
+	assert(pList);
+	SListNode* fast = pList;
+	SListNode* slow = pList;
+	while (fast && fast->next)
+	{
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	return slow;
 }
 
 //单链表的长度
@@ -280,5 +326,51 @@ void SListReverse(SListNode** ppList)
 }
 
 //单链表冒泡排序
-//void SListBubbleSort(SListNode* pList)
-//{}
+void SListBubbleSort(SListNode** pList)
+{
+	//断言
+	assert(pList);
+	if (*pList == NULL || (*pList)->next == NULL)
+	{
+		return;
+	}
+	else
+	{
+		SListNode* tail = NULL;	//尾节点
+		while (tail != *pList)	//只有一个节点时，tail==*pList
+		{
+			SListNode* cur = *pList;	//当前节点
+			SListNode* next = cur->next;	//下一个节点
+			SListNode* prev = NULL;	//当前节点的前一个节点
+			while (next != tail)	//只有两个节点时，next==tail
+			{
+				if (cur->data > next->data)	//交换
+				{
+					if (cur == *pList)	//头节点交换
+					{
+						cur->next = next->next;
+						next->next = cur;
+						*pList = next;
+						prev = next;
+						next = cur->next;
+					}
+					else
+					{
+						cur->next = next->next;
+						next->next = cur;
+						prev->next = next;
+						prev = next;
+						next = cur->next;
+					}
+				}
+				else	//不交换
+				{
+					prev = cur;
+					cur = next;
+					next = next->next;
+				}
+			}
+			tail = cur;
+		}
+	}
+}

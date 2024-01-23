@@ -31,8 +31,12 @@ int main()	//²âÊÔ´úÂë
 	SListPrint(node);
 	SListReverse(&node);	//5->3->2->8->NULL
 	SListPrint(node);
-	//SListBubbleSort(node);	//2->3->5->8->NULL
-	//SListPrint(node);
+	SListPushBack(&node, 3);	//5->3->2->8->3->NULL
+	SListPrint(node);
+	SListRemove(&node, 3);	//5->2->8->NULL
+	SListPrint(node);
+	SListBubbleSort(&node);	//2->5->8->NULL
+	SListPrint(node);
 
 	SListNode* FindRet = SListFind(node, 3);
 	if (FindRet)

@@ -44,8 +44,13 @@ void SListEraseAfter(SListNode* pos);
 //单链表指定位置前删除
 void SListEraseBefore(SListNode** ppList, SListNode* pos);
 
+//单链表删除所有指定值的节点
+void SListRemove(SListNode** ppList, SLDataType x);
+
 //单链表查找
 SListNode* SListFind(SListNode* pList, SLDataType x);
+//单链表中间节点
+SListNode* SListFindMidNode(SListNode* pList);
 
 //单链表的长度
 int SListSize(SListNode* pList);
@@ -59,4 +64,4 @@ void SListPrint(SListNode* pList);
 void SListReverse(SListNode** ppList);
 
 //单链表冒泡排序
-//void SListBubbleSort(SListNode* pList);
+void SListBubbleSort(SListNode** pList);
