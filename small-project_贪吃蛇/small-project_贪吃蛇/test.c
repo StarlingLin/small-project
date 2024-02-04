@@ -4,9 +4,10 @@
 
 void test()
 {
-	GameStart();
-	GameRun();
-	GameEnd();
+	Snake snake = { 0 };
+	GameStart(&snake);
+	GameRun(&snake);
+	GameEnd(&snake);
 }
 
 int main()
@@ -16,6 +17,7 @@ int main()
 	
 	//²âÊÔ
 	test();
+	getchar();
 
 	return 0;
 }

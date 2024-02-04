@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +6,14 @@
 #include <locale.h>
 #include <Windows.h>
 
-//ÓÎÏ·×´Ì¬
+#define WALL L'â– '
+#define BODY L'â—'
+#define HEAD L'â—†'
+#define FOOD L'â˜…'
+#define POS_X 24
+#define POS_Y 5
+
+//æ¸¸æˆçŠ¶æ€
 enum GAME_STATUS
 {
 	GAME_RUN,
@@ -15,16 +22,16 @@ enum GAME_STATUS
 	GAME_EXIT
 };
 
-//ÉßÒÆ¶¯·½Ïò
+//è›‡ç§»åŠ¨æ–¹å‘
 enum DIRECTION
 {
 	MOVE_UP = 1,
 	MOVE_DOWN,
 	MOVE_LEFT,
-	MOVE_DOWN
+	MOVE_RIGHT
 };
 
-//ÉßÉíÓëÊ³Îï½ÚµãµÄ¶¨Òå
+//è›‡èº«ä¸é£Ÿç‰©èŠ‚ç‚¹çš„å®šä¹‰
 typedef struct SnakeNode
 {
 	int x;
@@ -32,19 +39,25 @@ typedef struct SnakeNode
 	struct SnakeNode* next;
 } SnakeNode, * pSnakeNode;
 
-//ÓÎÏ·Ïà¹ØĞÅÏ¢½á¹¹Ìå
+//æ¸¸æˆç›¸å…³ä¿¡æ¯ç»“æ„ä½“
 typedef struct Snake
 {
-	pSnakeNode pSnake;	//Î¬»¤ÕûÌõÉß
-	pSnakeNode pFood;	//Ê³ÎïÖ¸Õë
-	int Score;	//µ±Ç°·ÖÊı
-	int FoodWeight;	//Ã¿¸öÊ³ÎïµÄ»ù×¼·ÖÊıÈ¨ÖØ
-	int MSPT;	//Ã¿ÓÎÏ·¿ÌºÁÃëÊı
-	enum GAME_STATUS status;	//ÓÎÏ·×´Ì¬
-	enum DIRECTION direction;
+	pSnakeNode pSnake;	//ç»´æŠ¤æ•´æ¡è›‡
+	pSnakeNode pFood;	//é£Ÿç‰©æŒ‡é’ˆ
+	int Score;	//å½“å‰åˆ†æ•°
+	int FoodWeight;	//æ¯ä¸ªé£Ÿç‰©çš„åŸºå‡†åˆ†æ•°æƒé‡
+	int MSPT;	//æ¯æ¸¸æˆåˆ»æ¯«ç§’æ•°
+	enum GAME_STATUS status;	//æ¸¸æˆçŠ¶æ€
+	enum DIRECTION direction;	//è›‡ç§»åŠ¨æ–¹å‘
 
-};
+} Snake, * pSnake;
 
-void GameStart();
-void GameRun();
-void GameEnd();
+void GameStart(pSnake ps);
+void GameRun(pSnake ps);
+void GameEnd(pSnake ps);
+
+void SetPos(int x, int y);
+
+void Welcome(void);
+void PrintMap(void);
+void InitSnake(pSnake ps);
