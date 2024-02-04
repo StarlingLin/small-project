@@ -2,6 +2,8 @@
 
 #include "Snake.h"
 
+int MSPT_VAL[10] = { 0,1,2,3,4,5,6,7,8,9 };
+
 void GameStart(pSnake ps)
 {
 	//设置控制台信息
@@ -19,7 +21,17 @@ void GameStart(pSnake ps)
 	PrintMap();
 	//初始化蛇
 	InitSnake(ps);
-
+	//打印节点
+	PrintSnake(ps);
+	//其他信息的初始化
+	ps->Direction = MOVE_RIGHT;
+	ps->FoodWeight = 10;
+	ps->MSPT = MSPT_VAL[1];
+	ps->pFood = NULL;
+	ps->Score = 0;
+	ps->Status = GAME_RUN;
+	//创建食物
+	CreateFood(ps);
 }
 
 void GameRun(pSnake ps)
@@ -85,7 +97,7 @@ void InitSnake(pSnake ps)
 	//创建5个蛇身的节点
 	for (int i = 0; i < 5; ++i)
 	{
-		pcur = (pSnake)malloc(sizeof(SnakeNode));
+		pcur = (pSnakeNode)malloc(sizeof(SnakeNode));
 		if (!pcur)
 		{ 
 			system("cls");
@@ -107,14 +119,57 @@ void InitSnake(pSnake ps)
 			ps->pSnake = pcur;
 		}
 	}
-	//打印节点
-	pcur = ps->pSnake;
-	do
+}
+
+void PrintSnake(pSnake ps)
+{
+	pSnakeNode pcur = ps->pSnake;
+	SetPos(pcur->x, pcur->y);
+	wprintf(L"%lc", HEAD);
+	pcur = pcur->next;
+	while (pcur)
 	{
 		SetPos(pcur->x, pcur->y);
 		wprintf(L"%lc", BODY);
 		pcur = pcur->next;
-	} while (pcur->next);
-	SetPos(pcur->x, pcur->y);
-	wprintf(L"%lc", HEAD);
+	};
+}
+
+void CreateFood(pSnake ps)
+{
+	srand((unsigned int)time(NULL));
+	int half_x = 0, y = 0;
+	do
+	{
+		half_x = rand() % 27 + 1;
+		y = rand() % 25 + 1;
+	} while (PosInSnake(2*half_x, y, ps)); 
+	//创建食物节点
+	pSnakeNode pFood = (pSnakeNode)malloc(sizeof(pSnakeNode));
+	if (!pFood)
+	{
+		system("cls");
+		SetPos(0, 0);
+		perror("CreatFood()->malloc()");
+		exit(EXIT_FAILURE);
+	}
+	pFood->x = 2 * half_x;
+	pFood->y = y;
+	ps->pFood = pFood;
+	SetPos(2 * half_x, y);
+	wprintf(L"%lc", FOOD);
+}
+
+_Bool PosInSnake(int x, int y, pSnake ps)
+{
+	pSnakeNode pcur = ps->pSnake;
+	while (pcur)
+	{
+		if (x == pcur->x && y == pcur->y)
+		{
+			return true;
+		}
+		pcur = pcur->next;
+	}
+	return false;
 }

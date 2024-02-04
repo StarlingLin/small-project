@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <locale.h>
 #include <Windows.h>
+#include <time.h>
 
 #define WALL L'■'
 #define BODY L'●'
@@ -47,8 +48,8 @@ typedef struct Snake
 	int Score;	//当前分数
 	int FoodWeight;	//每个食物的基准分数权重
 	int MSPT;	//每游戏刻毫秒数
-	enum GAME_STATUS status;	//游戏状态
-	enum DIRECTION direction;	//蛇移动方向
+	enum GAME_STATUS Status;	//游戏状态
+	enum DIRECTION Direction;	//蛇移动方向
 
 } Snake, * pSnake;
 
@@ -61,3 +62,6 @@ void SetPos(int x, int y);
 void Welcome(void);
 void PrintMap(void);
 void InitSnake(pSnake ps);
+void PrintSnake(pSnake ps);
+void CreateFood(pSnake ps);
+_Bool PosInSnake(int x, int y, pSnake ps);
