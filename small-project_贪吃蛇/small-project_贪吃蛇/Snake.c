@@ -9,6 +9,7 @@ void GameStart(pSnake ps)
 	//设置控制台信息
 	system("mode con cols=100 lines=27");
 	system("title 骇害嗨，逝贪吃蛇");
+	system("cls");
 	//隐藏光标
 	HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO CursorInfo;
@@ -121,7 +122,36 @@ void GameRun(pSnake ps)
 
 void GameEnd(pSnake ps)
 {
-
+	switch (ps->Status)
+	{
+	case GAME_EXIT:
+		;
+		break;
+	case HIT_WALL:
+		;
+		break;
+	case HIT_SELF:
+		;
+		break;
+	case FINISH_ALL:
+		;
+		break;
+	}
+	pSnakeNode pcur = ps->pSnake;
+	pSnakeNode pdel = NULL;
+	while (pcur)
+	{
+		pdel = pcur;
+		pcur = pcur->next;
+		free(pdel);
+	}
+	free(ps->pFood);
+	ps->pSnake = NULL;
+	ps->pFood = NULL;
+	ps = NULL;
+	system("cls");
+	SetPos(20, 10);
+	printf("还玩吗？(Y/N):");
 }
 
 void SnakeMove(pSnake ps)
@@ -137,22 +167,22 @@ void SnakeMove(pSnake ps)
 	pNext->next = NULL;
 	switch (ps->Direction)
 	{
-		case MOVE_UP:
-			pNext->x = ps->pSnake->x;
-			pNext->y = ps->pSnake->y - 1;
-			break;
-		case MOVE_DOWN:
-			pNext->x = ps->pSnake->x;
-			pNext->y = ps->pSnake->y + 1;
-			break;
-		case MOVE_LEFT:
-			pNext->x = ps->pSnake->x - 2;
-			pNext->y = ps->pSnake->y;
-			break;
-		case MOVE_RIGHT:
-			pNext->x = ps->pSnake->x + 2;
-			pNext->y = ps->pSnake->y;
-			break;
+	case MOVE_UP:
+		pNext->x = ps->pSnake->x;
+		pNext->y = ps->pSnake->y - 1;
+		break;
+	case MOVE_DOWN:
+		pNext->x = ps->pSnake->x;
+		pNext->y = ps->pSnake->y + 1;
+		break;
+	case MOVE_LEFT:
+		pNext->x = ps->pSnake->x - 2;
+		pNext->y = ps->pSnake->y;
+		break;
+	case MOVE_RIGHT:
+		pNext->x = ps->pSnake->x + 2;
+		pNext->y = ps->pSnake->y;
+		break;
 	}
 	//如果下一个坐标是食物
 	if (PosIsFood(pNext, ps))
@@ -167,6 +197,9 @@ void SnakeMove(pSnake ps)
 	HitWall(ps);
 	//检测撞自己
 	HitSelf(ps);
+	//清图
+	if (643 == ps->FoodEaten)
+		ps->Status = FINISH_ALL;
 }
 
 void SetPos(int x, int y)
@@ -191,6 +224,8 @@ void Welcome(void)
 	printf("使用数字键1~9控制游戏速度（1慢9快）");
 	SetPos(32, 12);
 	printf("速度越高得分也越高，但是难度也越高");
+	SetPos(32, 15);
+	printf("按空格键可以暂停，ESC键退出");
 	SetPos(42, 22);
 	system("pause");
 	system("cls");

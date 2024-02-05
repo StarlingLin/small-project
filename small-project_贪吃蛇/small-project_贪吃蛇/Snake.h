@@ -23,7 +23,8 @@ enum GAME_STATUS
 	GAME_RUN,
 	HIT_WALL,
 	HIT_SELF,
-	GAME_EXIT
+	GAME_EXIT,
+	FINISH_ALL
 };
 
 //蛇移动方向

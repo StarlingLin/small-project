@@ -4,10 +4,16 @@
 
 void test()
 {
-	Snake snake = { 0 };
-	GameStart(&snake);
-	GameRun(&snake);
-	GameEnd(&snake);
+	int ch = 0;
+	do
+	{
+		Snake snake = { 0 };
+		GameStart(&snake);
+		GameRun(&snake);
+		GameEnd(&snake);
+		ch = getchar();
+		scanf("%*[^\n]");
+	} while (ch == 'Y' || ch == 'y');
 }
 
 int main()
@@ -17,7 +23,6 @@ int main()
 	
 	//²âÊÔ
 	test();
-	getchar();
 
 	return 0;
 }
