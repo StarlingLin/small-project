@@ -2,7 +2,7 @@
 
 #include "Snake.h"
 
-int MSPT_VAL[10] = { 1,400,200,150,100,70,50,30,10,5 };
+int MSPT_VAL[10] = { 1,400,200,150,100,70,50,30,20,10 };
 
 void GameStart(pSnake ps)
 {
@@ -161,9 +161,6 @@ void GameEnd(pSnake ps)
 	ps->pSnake = NULL;
 	ps->pFood = NULL;
 	ps = NULL;
-	system("cls");
-	SetPos(20, 10);
-	printf("»¹ÍæÂð£¿(Y/N):");
 }
 
 void SnakeMove(pSnake ps)

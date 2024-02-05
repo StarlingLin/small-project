@@ -4,16 +4,13 @@
 
 void test()
 {
-	int ch = 0;
-	do
+	while (true)
 	{
 		Snake snake = { 0 };
 		GameStart(&snake);
 		GameRun(&snake);
 		GameEnd(&snake);
-		ch = getchar();
-		scanf("%*[^\n]");
-	} while (ch == 'Y' || ch == 'y');
+	}
 }
 
 int main()
