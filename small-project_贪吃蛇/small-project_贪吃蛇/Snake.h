@@ -50,6 +50,7 @@ typedef struct Snake
 	pSnakeNode pSnake;	//维护整条蛇
 	pSnakeNode pFood;	//食物指针
 	long double Score;	//当前分数
+	long double HighScore;	//最高分
 	long double FoodWeight;	//每个食物的基准分数权重
 	int FoodEaten;	//已吃食物数量
 	int MSPT;	//每游戏刻毫秒数等级
@@ -63,6 +64,9 @@ void GameRun(pSnake ps);
 void GameEnd(pSnake ps);
 
 void SetPos(int x, int y);
+
+long double GetHighScore(void);
+void SetHighScore(long double score);
 
 void Welcome(void);
 void PrintMap(void);

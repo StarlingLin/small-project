@@ -32,8 +32,43 @@ void GameStart(pSnake ps)
 	ps->pFood = NULL;
 	ps->Score = 0.0f;
 	ps->Status = GAME_RUN;
+	ps->HighScore = GetHighScore();
 	//创建食物
 	CreateFood(ps);
+}
+
+long double GetHighScore(void)
+{
+	//用于存储最高分
+	long double HighScore = 0.0f;
+	//打开注册表"Software\\Value\\Snake"，若存在则读取分数，若不存在则创建分数
+	HKEY hKey;
+	if (ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, L"Software\\Value\\Snake", 0, KEY_READ | KEY_WRITE, &hKey))
+	{
+		DWORD dwType = REG_BINARY;
+		DWORD dwSize = sizeof(HighScore);
+		RegQueryValueEx(hKey, L"HighScore", NULL, &dwType, (LPBYTE)&HighScore, &dwSize);
+		RegCloseKey(hKey);
+	}
+	else
+	{
+		if (ERROR_SUCCESS == RegCreateKeyEx(HKEY_CURRENT_USER, L"Software\\Value\\Snake", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL))
+		{
+			RegSetValueEx(hKey, L"HighScore", 0, REG_BINARY, (const BYTE*)&HighScore, sizeof(HighScore));
+			RegCloseKey(hKey);
+		}
+	}
+	return HighScore;
+}
+
+void SetHighScore(long double score)
+{
+	HKEY hKey;
+	if (ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, L"Software\\Value\\Snake", 0, KEY_READ | KEY_WRITE, &hKey))
+	{
+		RegSetValueEx(hKey, L"HighScore", 0, REG_BINARY, (const BYTE*)&score, sizeof(score));
+		RegCloseKey(hKey);
+	}
 }
 
 void GameRun(pSnake ps)
@@ -125,30 +160,31 @@ void GameEnd(pSnake ps)
 	switch (ps->Status)
 	{
 	case GAME_EXIT:
-		SetPos(62, 12);
+		SetPos(62, 14);
 		printf("你中断了游戏。");
-		SetPos(62, 15);
+		SetPos(62, 16);
 		system("pause");
 		break;
 	case HIT_WALL:
-		SetPos(62, 12);
+		SetPos(62, 14);
 		printf("你创到墙了。");
-		SetPos(62, 15);
+		SetPos(62, 16);
 		system("pause");
 		break;
 	case HIT_SELF:
-		SetPos(62, 12);
+		SetPos(62, 14);
 		printf("你创到自己了。");
-		SetPos(62, 15);
+		SetPos(62, 16);
 		system("pause");
 		break;
 	case FINISH_ALL:
-		SetPos(62, 12);
+		SetPos(62, 14);
 		printf("牛逼，您填满了格子。");
-		SetPos(62, 15);
+		SetPos(62, 16);
 		system("pause");
 		break;
 	}
+	//释放资源
 	pSnakeNode pcur = ps->pSnake;
 	pSnakeNode pdel = NULL;
 	while (pcur)
@@ -355,14 +391,16 @@ void PrintInfo(pSnake ps)
 	SetPos(62, 2);
 	printf("当前总得分：%.1Lf", ps->Score);
 	SetPos(62, 4);
-	printf("下一个食物：%.1Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
+	printf("历史最高分：%.1Lf", ps->HighScore);
 	SetPos(62, 6);
+	printf("下一个食物：%.1Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
+	SetPos(62, 8);
 	printf("游戏刻长度：%d", MSPT_VAL[ps->MSPT]);
 }
 
 void PauseGame(pSnake ps)
 {
-	SetPos(62, 9);
+	SetPos(62, 11);
 	printf("你暂停了游戏...");
 	while (true)
 	{
@@ -385,6 +423,11 @@ void EatFood(pSnake ps, pSnakeNode pNext)
 	CreateFood(ps);
 	ps->Score += ps->FoodWeight * CalcFoodM(ps->FoodEaten);
 	++ps->FoodEaten;
+	if (ps->Score > ps->HighScore)
+	{
+		ps->HighScore = ps->Score;
+		SetHighScore(ps->HighScore);
+	}
 }
 
 void MoveForward(pSnake ps, pSnakeNode pNext)
