@@ -59,12 +59,12 @@ void GameRun(pSnake ps)
 		{
 			ps->Direction = MOVE_RIGHT;
 		}
-		if (KEY_PRESSED(VK_ESCAPE))
+		else if (KEY_PRESSED(VK_ESCAPE))
 		{
 			ps->Status = GAME_EXIT;
 			break;
 		}
-		if (KEY_PRESSED(VK_SPACE))
+		else if (KEY_PRESSED(VK_SPACE))
 		{
 			PauseGame(ps);
 		}
@@ -125,16 +125,28 @@ void GameEnd(pSnake ps)
 	switch (ps->Status)
 	{
 	case GAME_EXIT:
-		;
+		SetPos(62, 12);
+		printf("你中断了游戏。");
+		SetPos(62, 15);
+		system("pause");
 		break;
 	case HIT_WALL:
-		;
+		SetPos(62, 12);
+		printf("你创到墙了。");
+		SetPos(62, 15);
+		system("pause");
 		break;
 	case HIT_SELF:
-		;
+		SetPos(62, 12);
+		printf("你创到自己了。");
+		SetPos(62, 15);
+		system("pause");
 		break;
 	case FINISH_ALL:
-		;
+		SetPos(62, 12);
+		printf("牛逼，您填满了格子。");
+		SetPos(62, 15);
+		system("pause");
 		break;
 	}
 	pSnakeNode pcur = ps->pSnake;
@@ -343,21 +355,25 @@ _Bool PosIsFood(pSnakeNode pNext, pSnake ps)
 
 void PrintInfo(pSnake ps)
 {
-	SetPos(65, 5);
+	SetPos(62, 2);
 	printf("当前总得分：%.1Lf", ps->Score);
-	SetPos(65, 7);
+	SetPos(62, 4);
 	printf("下一个食物：%.1Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
-	SetPos(65, 9);
+	SetPos(62, 6);
 	printf("游戏刻长度：%d", MSPT_VAL[ps->MSPT]);
 }
 
 void PauseGame(pSnake ps)
 {
+	SetPos(62, 9);
+	printf("你暂停了游戏...");
 	while (true)
 	{
 		Sleep(MSPT_VAL[ps->MSPT]);
 		if (KEY_PRESSED(VK_SPACE))
 		{
+			SetPos(62, 9);
+			printf("               ");
 			break;
 		}
 	}
