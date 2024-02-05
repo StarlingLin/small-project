@@ -163,6 +163,10 @@ void SnakeMove(pSnake ps)
 	{
 		MoveForward(ps, pNext);
 	}
+	//检测撞墙
+	HitWall(ps);
+	//检测撞自己
+	HitSelf(ps);
 }
 
 void SetPos(int x, int y)
@@ -305,9 +309,9 @@ _Bool PosIsFood(pSnakeNode pNext, pSnake ps)
 void PrintInfo(pSnake ps)
 {
 	SetPos(65, 5);
-	printf("当前总得分：%.2Lf", ps->Score);
+	printf("当前总得分：%.1Lf", ps->Score);
 	SetPos(65, 7);
-	printf("下一个食物：%.2Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
+	printf("下一个食物：%.1Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
 	SetPos(65, 9);
 	printf("游戏刻长度：%d", MSPT_VAL[ps->MSPT]);
 }
@@ -354,4 +358,37 @@ void MoveForward(pSnake ps, pSnakeNode pNext)
 long double CalcFoodM(int m)
 {
 	return 0.0004739178479 * m * m + 1;
+}
+
+void HitWall(pSnake ps)
+{
+	if (0 == ps->pSnake->x ||
+		56 == ps->pSnake->x ||
+		0 == ps->pSnake->y ||
+		26 == ps->pSnake->y)
+	{
+		ps->Status = HIT_WALL;
+	}
+}
+
+void HitSelf(pSnake ps)
+{
+	if (HeadInSelf(ps))
+	{
+		ps->Status = HIT_SELF;
+	}
+}
+
+_Bool HeadInSelf(pSnake ps)
+{
+	pSnakeNode pcur = ps->pSnake->next;
+	while (pcur)
+	{
+		if (ps->pSnake->x == pcur->x && ps->pSnake->y == pcur->y)
+		{
+			return true;
+		}
+		pcur = pcur->next;
+	}
+	return false;
 }
