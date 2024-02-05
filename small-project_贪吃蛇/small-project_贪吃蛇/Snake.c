@@ -2,7 +2,7 @@
 
 #include "Snake.h"
 
-int MSPT_VAL[10] = { 0,1,2,3,4,5,6,7,8,9 };
+int MSPT_VAL[10] = { 1,400,200,150,100,70,50,30,10,5 };
 
 void GameStart(pSnake ps)
 {
@@ -26,7 +26,7 @@ void GameStart(pSnake ps)
 	//其他信息的初始化
 	ps->Direction = MOVE_RIGHT;
 	ps->FoodWeight = 10;
-	ps->MSPT = MSPT_VAL[1];
+	ps->MSPT = 1;
 	ps->pFood = NULL;
 	ps->Score = 0;
 	ps->Status = GAME_RUN;
@@ -36,12 +36,132 @@ void GameStart(pSnake ps)
 
 void GameRun(pSnake ps)
 {
-
+	do
+	{
+		//打印信息
+		PrintInfo(ps);
+		//检测按键
+		if (KEY_PRESSED(VK_UP) && ps->Direction != MOVE_DOWN)
+		{
+			ps->Direction = MOVE_UP;
+		}
+		else if (KEY_PRESSED(VK_DOWN) && ps->Direction != MOVE_UP)
+		{
+			ps->Direction = MOVE_DOWN;
+		}
+		else if (KEY_PRESSED(VK_LEFT) && ps->Direction != MOVE_RIGHT)
+		{
+			ps->Direction = MOVE_LEFT;
+		}
+		else if (KEY_PRESSED(VK_RIGHT) && ps->Direction != MOVE_LEFT)
+		{
+			ps->Direction = MOVE_RIGHT;
+		}
+		if (KEY_PRESSED(VK_ESCAPE))
+		{
+			ps->Status = GAME_EXIT;
+			break;
+		}
+		if (KEY_PRESSED(VK_SPACE))
+		{
+			PauseGame(ps);
+		}
+		if (KEY_PRESSED(0x31))
+		{
+			ps->MSPT = 1;
+			ps->FoodWeight = 10;
+		}
+		if (KEY_PRESSED(0x32))
+		{
+			ps->MSPT = 2;
+			ps->FoodWeight = 20;
+		}
+		if (KEY_PRESSED(0x33))
+		{
+			ps->MSPT = 3;
+			ps->FoodWeight = 30;
+		}
+		if (KEY_PRESSED(0x34))
+		{
+			ps->MSPT = 4;
+			ps->FoodWeight = 50;
+		}
+		if (KEY_PRESSED(0x35))
+		{
+			ps->MSPT = 5;
+			ps->FoodWeight = 100;
+		}
+		if (KEY_PRESSED(0x36))
+		{
+			ps->MSPT = 6;
+			ps->FoodWeight = 150;
+		}
+		if (KEY_PRESSED(0x37))
+		{
+			ps->MSPT = 7;
+			ps->FoodWeight = 300;
+		}
+		if (KEY_PRESSED(0x38))
+		{
+			ps->MSPT = 8;
+			ps->FoodWeight = 500;
+		}
+		if (KEY_PRESSED(0x39))
+		{
+			ps->MSPT = 9;
+			ps->FoodWeight = 8000;
+		}
+		//走一步
+		SnakeMove(ps);
+		//停顿
+		Sleep(MSPT_VAL[ps->MSPT]);
+	} while (!ps->Status);
 }
 
 void GameEnd(pSnake ps)
 {
 
+}
+
+void SnakeMove(pSnake ps)
+{
+	pSnakeNode pNext = (pSnakeNode)malloc(sizeof(SnakeNode));
+	if (!pNext)
+	{
+		system("cls");
+		SetPos(0, 0);
+		perror("SnakeMove()->malloc()");
+		exit(EXIT_FAILURE);
+	}
+	pNext->next = NULL;
+	switch (ps->Direction)
+	{
+		case MOVE_UP:
+			pNext->x = ps->pSnake->x;
+			pNext->y = ps->pSnake->y - 1;
+			break;
+		case MOVE_DOWN:
+			pNext->x = ps->pSnake->x;
+			pNext->y = ps->pSnake->y + 1;
+			break;
+		case MOVE_LEFT:
+			pNext->x = ps->pSnake->x - 2;
+			pNext->y = ps->pSnake->y;
+			break;
+		case MOVE_RIGHT:
+			pNext->x = ps->pSnake->x + 2;
+			pNext->y = ps->pSnake->y;
+			break;
+	}
+	//如果下一个坐标是食物
+	if (PosIsFood(pNext, ps))
+	{
+		EatFood(ps, pNext);
+	}
+	else
+	{
+		MoveForward(ps, pNext);
+	}
 }
 
 void SetPos(int x, int y)
@@ -172,4 +292,59 @@ _Bool PosInSnake(int x, int y, pSnake ps)
 		pcur = pcur->next;
 	}
 	return false;
+}
+
+_Bool PosIsFood(pSnakeNode pNext, pSnake ps)
+{
+	if (ps->pFood->x == pNext->x && ps->pFood->y == pNext->y)
+		return true;
+	return false;
+}
+
+void PrintInfo(pSnake ps)
+{
+	SetPos(65, 5);
+	printf("当前总得分：%d", ps->Score);
+	SetPos(65, 7);
+	printf("下一个食物：%d", ps->FoodWeight);
+	SetPos(65, 9);
+	printf("游戏刻长度：%d", MSPT_VAL[ps->MSPT]);
+}
+
+void PauseGame(pSnake ps)
+{
+	while (true)
+	{
+		Sleep(MSPT_VAL[ps->MSPT]);
+		if (KEY_PRESSED(VK_SPACE))
+		{
+			break;
+		}
+	}
+}
+
+void EatFood(pSnake ps, pSnakeNode pNext)
+{
+	pNext->next = ps->pSnake;
+	ps->pSnake = pNext;
+	PrintSnake(ps);
+	free(ps->pFood);
+	CreateFood(ps);
+	ps->Score += ps->FoodWeight;
+}
+
+void MoveForward(pSnake ps, pSnakeNode pNext)
+{
+	pNext->next = ps->pSnake;
+	ps->pSnake = pNext;
+	pSnakeNode pcur = ps->pSnake;
+	while (pcur->next->next)
+	{
+		pcur = pcur->next;
+	}
+	SetPos(pcur->next->x, pcur->next->y);
+	printf("  ");
+	free(pcur->next);
+	pcur->next = NULL;
+	PrintSnake(ps);
 }

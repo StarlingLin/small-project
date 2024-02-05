@@ -14,6 +14,8 @@
 #define POS_X 24
 #define POS_Y 5
 
+#define KEY_PRESSED(VK) ( (GetAsyncKeyState(VK) & 0x1) ? 1 : 0 )
+
 //游戏状态
 enum GAME_STATUS
 {
@@ -47,7 +49,8 @@ typedef struct Snake
 	pSnakeNode pFood;	//食物指针
 	int Score;	//当前分数
 	int FoodWeight;	//每个食物的基准分数权重
-	int MSPT;	//每游戏刻毫秒数
+	int FoodEaten;	//已吃食物数量
+	int MSPT;	//每游戏刻毫秒数等级
 	enum GAME_STATUS Status;	//游戏状态
 	enum DIRECTION Direction;	//蛇移动方向
 
@@ -63,5 +66,11 @@ void Welcome(void);
 void PrintMap(void);
 void InitSnake(pSnake ps);
 void PrintSnake(pSnake ps);
+void PrintInfo(pSnake ps);
 void CreateFood(pSnake ps);
+void PauseGame(pSnake ps);
+void SnakeMove(pSnake ps);
+void EatFood(pSnake ps, pSnakeNode pNext);
+void MoveForward(pSnake ps, pSnakeNode pNext);
 _Bool PosInSnake(int x, int y, pSnake ps);
+_Bool PosIsFood(pSnakeNode pNext, pSnake ps);
