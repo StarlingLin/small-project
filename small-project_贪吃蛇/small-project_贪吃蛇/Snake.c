@@ -9,6 +9,7 @@ void GameStart(pSnake ps)
 	//设置控制台信息
 	system("mode con cols=100 lines=27");
 	system("title 骇害嗨，逝贪吃蛇");
+	system("color F0");
 	system("cls");
 	//隐藏光标
 	HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -16,6 +17,11 @@ void GameStart(pSnake ps)
 	GetConsoleCursorInfo(hOutput, &CursorInfo);
 	CursorInfo.bVisible = false;
 	SetConsoleCursorInfo(hOutput, &CursorInfo);
+	//设置窗口大小不可更改
+	HWND hWnd = GetConsoleWindow();
+	LONG_PTR sty = GetWindowLongPtrA(hWnd, GWL_STYLE);
+	sty = sty & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX;
+	SetWindowLongPtrA(hWnd, GWL_STYLE, sty);
 	//打印初始界面
 	Welcome();
 	//绘制地图
@@ -389,11 +395,19 @@ _Bool PosIsFood(pSnakeNode pNext, pSnake ps)
 void PrintInfo(pSnake ps)
 {
 	SetPos(62, 2);
+	printf("                    ");
+	SetPos(62, 2);
 	printf("当前总得分：%.1Lf", ps->Score);
+	SetPos(62, 4);
+	printf("                    ");
 	SetPos(62, 4);
 	printf("历史最高分：%.1Lf", ps->HighScore);
 	SetPos(62, 6);
+	printf("                    ");
+	SetPos(62, 6);
 	printf("下一个食物：%.1Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
+	SetPos(62, 8);
+	printf("                    ");
 	SetPos(62, 8);
 	printf("游戏刻长度：%d", MSPT_VAL[ps->MSPT]);
 }
