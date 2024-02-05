@@ -6,6 +6,7 @@
 #include <locale.h>
 #include <Windows.h>
 #include <time.h>
+#include <math.h>
 
 #define WALL L'■'
 #define BODY L'●'
@@ -47,8 +48,8 @@ typedef struct Snake
 {
 	pSnakeNode pSnake;	//维护整条蛇
 	pSnakeNode pFood;	//食物指针
-	int Score;	//当前分数
-	int FoodWeight;	//每个食物的基准分数权重
+	long double Score;	//当前分数
+	long double FoodWeight;	//每个食物的基准分数权重
 	int FoodEaten;	//已吃食物数量
 	int MSPT;	//每游戏刻毫秒数等级
 	enum GAME_STATUS Status;	//游戏状态
@@ -72,5 +73,6 @@ void PauseGame(pSnake ps);
 void SnakeMove(pSnake ps);
 void EatFood(pSnake ps, pSnakeNode pNext);
 void MoveForward(pSnake ps, pSnakeNode pNext);
+long double CalcFoodM(int m);
 _Bool PosInSnake(int x, int y, pSnake ps);
 _Bool PosIsFood(pSnakeNode pNext, pSnake ps);

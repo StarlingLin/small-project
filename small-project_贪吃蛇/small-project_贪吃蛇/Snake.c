@@ -7,7 +7,7 @@ int MSPT_VAL[10] = { 1,400,200,150,100,70,50,30,10,5 };
 void GameStart(pSnake ps)
 {
 	//设置控制台信息
-	system("mode con cols=100 lines=26");
+	system("mode con cols=100 lines=27");
 	system("title 骇害嗨，逝贪吃蛇");
 	//隐藏光标
 	HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -25,10 +25,11 @@ void GameStart(pSnake ps)
 	PrintSnake(ps);
 	//其他信息的初始化
 	ps->Direction = MOVE_RIGHT;
-	ps->FoodWeight = 10;
+	ps->FoodWeight = 10.0f;
+	ps->FoodEaten = 0;
 	ps->MSPT = 1;
 	ps->pFood = NULL;
-	ps->Score = 0;
+	ps->Score = 0.0f;
 	ps->Status = GAME_RUN;
 	//创建食物
 	CreateFood(ps);
@@ -196,15 +197,15 @@ void PrintMap(void)
 	SetPos(0, 0);
 	for (int i = 0; i <= 28; ++i)
 		wprintf(L"%lc", WALL);
-	SetPos(0, 25);
+	SetPos(0, 26);
 	for (int i = 0; i <= 28; ++i)
 		wprintf(L"%lc", WALL);
-	for (int i = 1; i <= 24; ++i)
+	for (int i = 1; i <= 25; ++i)
 	{
 		SetPos(0, i);
 		wprintf(L"%lc", WALL);
 	}
-	for (int i = 1; i <= 24; ++i)
+	for (int i = 1; i <= 25; ++i)
 	{
 		SetPos(56, i);
 		wprintf(L"%lc", WALL);
@@ -304,9 +305,9 @@ _Bool PosIsFood(pSnakeNode pNext, pSnake ps)
 void PrintInfo(pSnake ps)
 {
 	SetPos(65, 5);
-	printf("当前总得分：%d", ps->Score);
+	printf("当前总得分：%.2Lf", ps->Score);
 	SetPos(65, 7);
-	printf("下一个食物：%d", ps->FoodWeight);
+	printf("下一个食物：%.2Lf", ps->FoodWeight * CalcFoodM(ps->FoodEaten));
 	SetPos(65, 9);
 	printf("游戏刻长度：%d", MSPT_VAL[ps->MSPT]);
 }
@@ -330,7 +331,8 @@ void EatFood(pSnake ps, pSnakeNode pNext)
 	PrintSnake(ps);
 	free(ps->pFood);
 	CreateFood(ps);
-	ps->Score += ps->FoodWeight;
+	ps->Score += ps->FoodWeight * CalcFoodM(ps->FoodEaten);
+	++ps->FoodEaten;
 }
 
 void MoveForward(pSnake ps, pSnakeNode pNext)
@@ -347,4 +349,9 @@ void MoveForward(pSnake ps, pSnakeNode pNext)
 	free(pcur->next);
 	pcur->next = NULL;
 	PrintSnake(ps);
+}
+
+long double CalcFoodM(int m)
+{
+	return 0.0004739178479 * m * m + 1;
 }
