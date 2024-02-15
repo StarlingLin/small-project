@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Contact.h"
-#include "SeqList.h"
+#include "SList.h"
 
 //初始化通讯录
 void InitContact(Contact* pc)
