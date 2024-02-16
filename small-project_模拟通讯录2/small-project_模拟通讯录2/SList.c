@@ -2,7 +2,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "SeqList.h"
+#include "SList.h"
 
 //初始化与销毁
 //初始化
