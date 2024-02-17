@@ -1,3 +1,5 @@
+//链表实现通讯录
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "SList.h"
