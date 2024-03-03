@@ -1,6 +1,10 @@
 #pragma once
 
-#include "List.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <time.h>
 
 //定义各数组的最大长度
 #define NAME_MAX 20			//姓名最大长度
@@ -14,6 +18,9 @@
 #define PAGINATION_MAX 10	//页码最大长度
 #define ORGANIZATION_MAX 50	//组织最大长度
 #define LEVEL_MAX 10		//级别最大长度
+
+//前置声明链表
+typedef struct Node Node;
 
 //定义各结构体
 //日期结构体
@@ -52,32 +59,30 @@ typedef struct Award
 	char level[LEVEL_MAX];				//获奖级别
 	Date awardDate;						//获奖日期
 } Award;
-//成员结构体
-typedef struct Member
+//学生结构体
+typedef struct Student
 {
 	char name[NAME_MAX];			//姓名
 	char gender[GENDER_MAX];		//性别
 	Thesis thesis[THESIS_MAX];		//论文
 	Project project[PROJECT_MAX];	//项目
 	Award award[AWARD_MAX];			//获奖
-} Member;
+} Student;
 
 //定义各函数
 //初始化成员
-void InitMember(Member* member);
+void InitStudent(Node* pList);
 //添加
-void AddThesis(Member* member);
-void AddProject(Member* member);
-void AddAward(Member* member);
+void AddThesis(Node* pList);
+void AddProject(Node* pList);
+void AddAward(Node* pList);
 //删除
-void DeleteThesis(Member* member);
-void DeleteProject(Member* member);
-void DeleteAward(Member* member);
+void DeleteThesis(Node* pList);
+void DeleteProject(Node* pList);
+void DeleteAward(Node* pList);
 //修改
-void ModifyThesis(Member* member);
-void ModifyProject(Member* member);
-void ModifyAward(Member* member);
+void ModifyThesis(Node* pList);
+void ModifyProject(Node* pList);
+void ModifyAward(Node* pList);
+
 //查询
-void QueryThesis(Member* member);
-void QueryProject(Member* member);
-void QueryAward(Member* member);
