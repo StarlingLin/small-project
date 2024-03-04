@@ -47,6 +47,11 @@ void PushFront(Node* pList, ListDataType* data)
 	//¶ÏÑÔ
 	assert(pList != NULL);
 	Node* pNew = (Node*)malloc(sizeof(Node));
+	if (pNew == NULL)
+	{
+		printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
+		exit(EXIT_FAILURE);
+	}
 	pNew->data = data;
 	pNew->next = pList->next;
 	pList->next = pNew;
@@ -61,6 +66,11 @@ void PushBack(Node* pList, ListDataType* data)
 		p = p->next;
 	}
 	Node* pNew = (Node*)malloc(sizeof(Node));
+	if (pNew == NULL)
+	{
+		printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
+		exit(EXIT_FAILURE);
+	}
 	pNew->data = data;
 	pNew->next = NULL;
 	p->next = pNew;
@@ -105,6 +115,11 @@ void Insert(Node* pList, int pos, ListDataType* data)
 	if (p != NULL)
 	{
 		Node* pNew = (Node*)malloc(sizeof(Node));
+		if (pNew == NULL)
+		{
+			printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
+			exit(EXIT_FAILURE);
+		}
 		pNew->data = data;
 		pNew->next = p->next;
 		p->next = pNew;

@@ -74,19 +74,51 @@ typedef struct Student
 //定义各函数
 //添加学生
 Student* AddStudent(Node* pList);
+//按名称查询学生（返回位置）
+int FindStudent(Node* pList, char* name);
+//删除学生
+void DeleteStudent(Node* pList, int pos);
 //修改学生信息（theses,projects,awards可置NULL）
 Student* ModifyStudent(Student* stu, char* name, char* gender, Thesis* theses, Project* projects, Award* awards);
 //添加论文、项目、获奖
-void AddThesis(Student* stu, Thesis thesis);
-void AddProject(Student* stu, Project project);
-void AddAward(Student* stu, Award award);
+Student* AddThesis(Student* stu, Thesis thesis);
+Student* AddProject(Student* stu, Project project);
+Student* AddAward(Student* stu, Award award);
 //删除论文、项目、获奖
-void DeleteThesis(Student* stu, int pos);
-void DeleteProject(Student* stu, int pos);
-void DeleteAward(Student* stu, int pos);
+Student* DeleteThesis(Student* stu, int pos);
+Student* DeleteProject(Student* stu, int pos);
+Student* DeleteAward(Student* stu, int pos);
+//按名称查询论文、项目、获奖（返回位置）
+int FindThesis(Student* stu, char* title);
+int FindProject(Student* stu, char* title);
+int FindAward(Student* stu, char* title);
 //修改论文、项目、获奖
-void ModifyThesis(Student* stu);
-void ModifyProject(Student* stu);
-void ModifyAward(Student* stu);
+Student* ModifyThesis(Student* stu, int pos, Thesis thesis);
+Student* ModifyProject(Student* stu, int pos, Project project);
+Student* ModifyAward(Student* stu, int pos, Award award);
+//按位置返回论文、项目、获奖
+Thesis* GetThesis(Student* stu, int pos);
+Project* GetProject(Student* stu, int pos);
+Award* GetAward(Student* stu, int pos);
 
-//查询
+//论文结构体
+//创建论文
+Thesis CreateThesis(char* title, char author[MEMBER_MAX][NAME_MAX], char* periodical, char* pagination, Date publishDate, char grade, float score);
+//修改论文具体信息（置NULL不改）
+Thesis ModifyThesisDetail(Thesis thesis, char* title, char author[MEMBER_MAX][NAME_MAX], char* periodical, char* pagination, Date publishDate, char grade, float score);
+//项目结构体
+//创建项目
+Project CreateProject(char* title, char member[MEMBER_MAX][NAME_MAX], int id, Date startDate, Date endDate);
+//修改项目具体信息（置NULL不改）
+Project ModifyProjectDetail(Project project, char* title, char member[MEMBER_MAX][NAME_MAX], int id, Date startDate, Date endDate);
+//获奖结构体	
+//创建获奖
+Award CreateAward(char* title, char organization[ORGANIZATION_MAX], char member[MEMBER_MAX][NAME_MAX], char level[LEVEL_MAX], Date awardDate);
+//修改获奖具体信息（置NULL不改）
+Award ModifyAwardDetail(Award award, char* title, char organization[ORGANIZATION_MAX], char member[MEMBER_MAX][NAME_MAX], char level[LEVEL_MAX], Date awardDate);
+//日期结构体
+//创建日期
+Date CreateDate(int year, int month, int day);
+//修改日期具体信息（置0不改）
+Date ModifyDateDetail(Date date, int year, int month, int day);
+

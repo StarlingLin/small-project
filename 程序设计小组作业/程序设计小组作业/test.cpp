@@ -3,11 +3,11 @@
 #include <graphics.h>	// EasyX
 #include "List.h"
 
+#define CH (char*)
+
 int main()
 {
-	Node* head = (Node*)malloc(sizeof(Node));
-	InitList(head);
-	DestroyList(head);
+
 
 	return EXIT_SUCCESS;
 }
