@@ -2,8 +2,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <assert.h>
+#include <Windows.h>
 #include <time.h>
 
 //定义各数组的最大长度
@@ -70,19 +72,21 @@ typedef struct Student
 } Student;
 
 //定义各函数
-//初始化成员
-void InitStudent(Node* pList);
-//添加
-void AddThesis(Node* pList);
-void AddProject(Node* pList);
-void AddAward(Node* pList);
-//删除
-void DeleteThesis(Node* pList);
-void DeleteProject(Node* pList);
-void DeleteAward(Node* pList);
-//修改
-void ModifyThesis(Node* pList);
-void ModifyProject(Node* pList);
-void ModifyAward(Node* pList);
+//添加学生
+Student* AddStudent(Node* pList);
+//修改学生信息（theses,projects,awards可置NULL）
+Student* ModifyStudent(Student* stu, char* name, char* gender, Thesis* theses, Project* projects, Award* awards);
+//添加论文、项目、获奖
+void AddThesis(Student* stu, Thesis thesis);
+void AddProject(Student* stu, Project project);
+void AddAward(Student* stu, Award award);
+//删除论文、项目、获奖
+void DeleteThesis(Student* stu, int pos);
+void DeleteProject(Student* stu, int pos);
+void DeleteAward(Student* stu, int pos);
+//修改论文、项目、获奖
+void ModifyThesis(Student* stu);
+void ModifyProject(Student* stu);
+void ModifyAward(Student* stu);
 
 //查询

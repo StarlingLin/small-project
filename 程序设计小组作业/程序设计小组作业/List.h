@@ -1,5 +1,5 @@
 #pragma once
-
+//链表的头文件
 #include "system.h"
 
 //链表保存的数据类型
@@ -16,13 +16,9 @@ typedef struct Node
 void InitList(Node* pList);
 //销毁链表
 void DestroyList(Node* pList);
-//清空链表
-void ClearList(Node* pList);
 
 //获取链表长度
 int GetLength(Node* pList);
-//判断链表是否为空
-int IsEmpty(Node* pList);
 
 //头部/尾部插入
 void PushFront(Node* pList, ListDataType* data);
