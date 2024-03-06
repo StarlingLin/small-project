@@ -7,7 +7,9 @@
 
 int main()
 {
-	InitSysWindow(400, 300, L"素质类项目成绩管理系统");
+	hiex::Window window_main = _InitSysWindow(400, 500, L"素质类项目成绩管理系统");
+	_DrawSysMenu(window_main);
+
 	system("pause");
 	return EXIT_SUCCESS;
 }

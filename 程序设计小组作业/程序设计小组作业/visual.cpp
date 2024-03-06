@@ -3,9 +3,17 @@
 #include "visual.h"
 
 //初始化管理系统的窗口
-void InitSysWindow(int width, int height, LPCTSTR title)
+hiex::Window _InitSysWindow(int width, int height, LPCTSTR title)
 {
 	hiex::SetCustomIcon(MAKEINTRESOURCE(ICON), MAKEINTRESOURCE(ICON));
-	hiex::Window window_main(width, height);
-	window_main.SetTitle(title);
+	hiex::Window wnd(width, height);
+	wnd.SetTitle(title);
+	EnableResizing(wnd.GetHandle(), false);
+	return wnd;
+}
+
+//绘制初始界面
+void _DrawSysMenu(hiex::Window window_main)
+{
+	
 }
