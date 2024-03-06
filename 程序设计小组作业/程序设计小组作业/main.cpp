@@ -5,11 +5,34 @@
 
 #define CH (char*)
 
+//程序状态定义在visual.h中
+
 int main()
 {
-	hiex::Window window_main = _InitSysWindow(400, 500, L"素质类项目成绩管理系统");
-	_DrawSysMenu(window_main, 400, 500);
+	enum State state = MENU;	//程序状态
 
-	system("pause");
+	hiex::Window window_main = _InitSysWindow(300, 300, L"素质类项目成绩管理系统");
+
+	while (state)
+	{
+		switch (state)
+		{
+		case MENU:
+			_DrawSysMenu(window_main, 300, 300);
+			state = _GetSysMenu(window_main);
+			break;
+		case VIEW:
+			break;
+		case SEARCH:
+			break;
+		case ADD:
+			break;
+		case EXIT:
+			break;
+		default:
+			break;
+		}
+	}
+
 	return EXIT_SUCCESS;
 }
