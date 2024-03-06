@@ -218,7 +218,7 @@ Award* GetAward(Student* stu, int pos)
 //创建论文
 Thesis CreateThesis(char* title, char author[MEMBER_MAX][NAME_MAX], char* periodical, char* pagination, Date publishDate, char grade, float score)
 {
-	Thesis thesis;
+	Thesis thesis = { 0 };
 	strcpy(thesis.title, title);
 	for (int i = 0; i < MEMBER_MAX; i++)
 	{
@@ -271,7 +271,7 @@ Thesis ModifyThesisDetail(Thesis thesis, char* title, char author[MEMBER_MAX][NA
 //创建项目
 Project CreateProject(char* title, char member[MEMBER_MAX][NAME_MAX], int id, Date startDate, Date endDate)
 {
-	Project project;
+	Project project = { 0 };
 	strcpy(project.title, title);
 	for (int i = 0; i < MEMBER_MAX; i++)
 	{
@@ -314,7 +314,7 @@ Project ModifyProjectDetail(Project project, char* title, char member[MEMBER_MAX
 //创建获奖
 Award CreateAward(char* title, char organization[ORGANIZATION_MAX], char member[MEMBER_MAX][NAME_MAX], char level[LEVEL_MAX], Date awardDate)
 {
-	Award award;
+	Award award = { 0 };
 	strcpy(award.title, title);
 	strcpy(award.organization, organization);
 	for (int i = 0; i < MEMBER_MAX; i++)
@@ -357,7 +357,7 @@ Award ModifyAwardDetail(Award award, char* title, char organization[ORGANIZATION
 //创建日期
 Date CreateDate(int year, int month, int day)
 {
-	Date date;
+	Date date = { 0 };
 	date.year = year;
 	date.month = month;
 	date.day = day;

@@ -55,7 +55,6 @@ enum State _GetSysMenu(hiex::Window wnd)
 		}
 		if (btn_savequit.IsClicked())
 		{
-			MessageBox(wnd.GetHandle(), L"保存成功", L"提示", MB_OK);
 			return EXIT;
 		}
 		Sleep(50);
