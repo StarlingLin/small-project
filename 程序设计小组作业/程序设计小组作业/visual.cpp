@@ -13,7 +13,11 @@ hiex::Window _InitSysWindow(int width, int height, LPCTSTR title)
 }
 
 //绘制初始界面
-void _DrawSysMenu(hiex::Window window_main)
+void _DrawSysMenu(hiex::Window window_main, int width, int height)
 {
-	
+	hiex::Canvas canvas;
+	window_main.BindCanvas(&canvas);
+	RECT rect = {0, 0, width, height/4};
+	canvas.CenterText(L"管理系统", rect);
+	window_main.Redraw();
 }
