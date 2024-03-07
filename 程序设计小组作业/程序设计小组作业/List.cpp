@@ -262,7 +262,7 @@ bool LoadData(Node* pList)
 	if (data == NULL)
 	{
 		printf("内存分配失败！\n");
-		exit(EXIT_FAILURE);
+		return false;
 	}
 	while (fscanf(fp, "姓名：%s\n性别：%s\n", data->name, data->gender) != EOF)
 	{

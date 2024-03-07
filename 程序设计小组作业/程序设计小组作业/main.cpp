@@ -11,6 +11,9 @@ int main()
 {
 	enum State state = MENU;	//程序状态
 
+	//登录界面
+	_LoginUI(200, 150, L"登录");	//登录界面
+
 	//数据结构的载入
 	LoadList(head);
 
@@ -23,6 +26,7 @@ int main()
 	//AddThesis(s2, CreateThesis(CH"这是一个论文", au1, CH"这是一个期刊", CH"这是页码", { 2019, 1, 1 }, 'T', 0.2f));
 	//AddProject(s2, CreateProject(CH"这是一个项目", au1, 114514, { 2018, 1, 1 }, { 2019, 1, 1 }));
 
+	//UI
 	hiex::Window window_main = _InitSysWindow(300, 300, L"素质类项目成绩管理系统");
 
 	while (state)
