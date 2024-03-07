@@ -11,9 +11,9 @@
 //定义各数组的最大长度
 #define NAME_MAX 20			//姓名最大长度
 #define GENDER_MAX 10		//性别最大长度
-#define THESIS_MAX 10		//论文最大数量
-#define PROJECT_MAX 10		//项目最大数量
-#define AWARD_MAX 10		//获奖最大数量
+#define THESIS_MAX 5		//论文最大数量
+#define PROJECT_MAX 5		//项目最大数量
+#define AWARD_MAX 5			//获奖最大数量
 #define MEMBER_MAX 10		//成员最大数量（项目、论文、获奖）
 #define TITLE_MAX 50		//标题最大长度
 #define PERIODICAL_MAX 50	//期刊最大长度

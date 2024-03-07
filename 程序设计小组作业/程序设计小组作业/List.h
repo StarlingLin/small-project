@@ -30,7 +30,7 @@ void PopBack(Node* pList);
 void Insert(Node* pList, int pos, ListDataType* data);
 void Erase(Node* pList, int pos);
 
-//保存/加载数据到txt文件
+//保存/加载数据
 bool SaveData(Node* pList);
 //bool LoadData(Node* pList);
 

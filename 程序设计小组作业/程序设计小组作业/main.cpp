@@ -15,7 +15,16 @@ int main()
 	LoadList(head);
 
 	//test
-	ModifyStudent(AddStudent(head), CH"张三", CH"男", NULL, NULL, NULL);
+	char au1[MEMBER_MAX][NAME_MAX] = { "小明","小红","小黄","小绿","张三","李四","王五" };
+	Thesis the1 = { "这是一个论文" };
+	memcpy(the1.author, au1, sizeof(au1));
+	strcpy(the1.periodical, "这是一个期刊");
+	strcpy(the1.pagination, "这是页码");
+	the1.publishDate = { 2019, 1, 1 };
+	the1.grade = 'T';
+	the1.score = 0.2f;
+	Student* s1 = ModifyStudent(AddStudent(head), CH"张三", CH"男", NULL, NULL, NULL);
+	AddThesis(s1, the1);
 
 	hiex::Window window_main = _InitSysWindow(300, 300, L"素质类项目成绩管理系统");
 

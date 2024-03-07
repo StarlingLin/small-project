@@ -144,29 +144,33 @@ void Erase(Node* pList, int pos)
 	}
 }
 
-//保存/加载数据到txt文件
+//保存/加载数据
 bool SaveData(Node* pList)
 {
 	//断言
 	assert(pList != NULL);
+	
+	//txt文件保存
 	FILE* fp = fopen("data.txt", "w");
 	if (fp == NULL)
 	{
-		printf("文件打开失败！\n");
+		perror("文件打开失败！");
 		return false;
 	}
 	Node* p = pList->next;
 	while (p != NULL)
 	{
-		fprintf(fp, "%s\n%s\n", p->data->name, p->data->gender);
+		fprintf(fp, "姓名：%s\t性别：%s\n", p->data->name, p->data->gender);
+		fprintf(fp, "------------------------\n");
 		for (int i = 0; i < THESIS_MAX; ++i)
 		{
-			fprintf(fp, "%s\n",	p->data->thesis[i].title);
+			fprintf(fp, "论文%d：《%s》\n", i + 1, p->data->thesis[i].title);
+			fprintf(fp, "作者（首行通讯作者）：\n");
 			for (int j = 0; j < MEMBER_MAX; ++j)
 			{
 				fprintf(fp, "%s\n", p->data->thesis[i].author[j]);
 			}
-			fprintf(fp, "%s\n%s\n%d %d %d\n%c\n%.2f\n",
+			fprintf(fp, "期刊：%s\n页码/卷期/论文编号：%s\n发表日期：%d年%d月%d日\n论文级别：%c\n论文加分：%.2f\n",
 				p->data->thesis[i].periodical, 
 				p->data->thesis[i].pagination,
 				p->data->thesis[i].publishDate.year, 
@@ -175,15 +179,17 @@ bool SaveData(Node* pList)
 				p->data->thesis[i].grade,
 				p->data->thesis[i].score
 			);
+			fprintf(fp, "------------------------\n");
 		}
 		for (int i = 0; i < PROJECT_MAX; ++i)
 		{
-			fprintf(fp, "%s\n", p->data->project[i].title);
+			fprintf(fp, "项目%d：%s\n", i+1, p->data->project[i].title);
+			fprintf(fp, "成员（首行指导老师）：\n");
 			for (int j = 0; j < MEMBER_MAX; ++j)
 			{
 				fprintf(fp, "%s\n", p->data->project[i].member[j]);
 			}
-			fprintf(fp, "%d\n%d %d %d\n%d %d %d\n",
+			fprintf(fp, "项目编号：%d\n开始日期：%d年%d月%d日\n结束日期：%d年%d月%d日\n",
 				p->data->project[i].id,
 				p->data->project[i].startDate.year,
 				p->data->project[i].startDate.month,
@@ -192,41 +198,47 @@ bool SaveData(Node* pList)
 				p->data->project[i].endDate.month,
 				p->data->project[i].endDate.day
 			);
+			fprintf(fp, "------------------------\n");
 		}
 		for (int i = 0; i < AWARD_MAX; ++i)
 		{
-			fprintf(fp, "%s\n%s\n", p->data->award[i].title, p->data->award->organization);
+			fprintf(fp, "奖项%d：%s\n颁奖机构：%s\n", i + 1, 
+				p->data->award[i].title, 
+				p->data->award->organization
+			);
+			fprintf(fp, "获奖人（不唯一）：\n");
 			for (int j = 0; j < MEMBER_MAX; ++j)
 			{
 				fprintf(fp, "%s\n", p->data->award[i].member[j]);
 			}
-			fprintf(fp, "%s\n%d %d %d\n",
+			fprintf(fp, "获奖级别：%s\n获奖日期：%d年%d月%d日\n",
 				p->data->award[i].level,
 				p->data->award[i].awardDate.year,
 				p->data->award[i].awardDate.month,
 				p->data->award[i].awardDate.day
 			);
+			fprintf(fp, "------------------------\n");
 		}
+		fprintf(fp, "========================\n");
 		p = p->next;
 	}
 	fclose(fp);
+
+	//二进制文件保存
+	fp = fopen("data.bin", "wb");
+	if (fp == NULL)
+	{
+		perror("文件打开失败！");
+		return false;
+	}
+	p = pList->next;
+	while (p != NULL)
+	{
+		fwrite(p->data, sizeof(ListDataType), 1, fp);
+		p = p->next;
+	}
+	fclose(fp);
+
 	return true;
 }
 //bool LoadData(Node* pList)
-//{
-//	//断言
-//	assert(pList != NULL);
-//	FILE* fp = fopen("data.txt", "r");
-//	if (fp == NULL)
-//	{
-//		printf("文件打开失败！\n");
-//		return false;
-//	}
-//	ListDataType data;
-//	while (fscanf(fp, "%d", &data) != EOF)
-//	{
-//		PushBack(pList, data);
-//	}
-//	fclose(fp);
-//	return true;
-//}
