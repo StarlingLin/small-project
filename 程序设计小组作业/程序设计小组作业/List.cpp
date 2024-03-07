@@ -160,8 +160,8 @@ bool SaveData(Node* pList)
 	Node* p = pList->next;
 	while (p != NULL)
 	{
-		fprintf(fp, "姓名：%s\t性别：%s\n", p->data->name, p->data->gender);
-		fprintf(fp, "论文数：%d\t项目数：%d\t获奖数：%d\n", 
+		fprintf(fp, "姓名：%s\n性别：%s\n", p->data->name, p->data->gender);
+		fprintf(fp, "论文数：%d\n项目数：%d\n获奖数：%d\n", 
 			p->data->thesisNum,
 			p->data->projectNum,
 			p->data->awardNum
@@ -264,71 +264,101 @@ bool LoadData(Node* pList)
 		printf("内存分配失败！\n");
 		exit(EXIT_FAILURE);
 	}
-	//while (fscanf(fp, "姓名：%s\t性别：%s\n", data->name, data->gender) != EOF)
-	//{
-	//	fscanf(fp, "论文数：%d\t项目数：%d\t获奖数：%d\n",
-	//		&data->thesisNum,
-	//		&data->projectNum,
-	//		&data->awardNum
-	//	);
-	//	for (int i = 0; i < data->thesisNum; ++i)
-	//	{
-	//		fscanf(fp, "论文%d：《%s》\n", i + 1, data->thesis[i].title);
-	//		for (int j = 0; j < MEMBER_MAX; ++j)
-	//		{
-	//			fscanf(fp, "%s\n", data->thesis[i].author[j]);
-	//		}
-	//		fscanf(fp, "期刊：%s\n页码/卷期/论文编号：%s\n发表日期：%d年%d月%d日\n论文级别：%c\n论文加分：%f\n",
-	//			data->thesis[i].periodical,
-	//			data->thesis[i].pagination,
-	//			&data->thesis[i].publishDate.year,
-	//			&data->thesis[i].publishDate.month,
-	//			&data->thesis[i].publishDate.day,
-	//			&data->thesis[i].grade,
-	//			&data->thesis[i].score
-	//		);
-	//	}
-	//	for (int i = 0; i < data->projectNum; ++i)
-	//	{
-	//		fscanf(fp, "项目%d：%s\n", i + 1, data->project[i].title);
-	//		for (int j = 0; j < MEMBER_MAX; ++j)
-	//		{
-	//			fscanf(fp, "%s\n", data->project[i].member[j]);
-	//		}
-	//		fscanf(fp, "项目编号：%d\n开始日期：%d年%d月%d日\n结束日期：%d年%d月%d日\n",
-	//			&data->project[i].id,
-	//			&data->project[i].startDate.year,
-	//			&data->project[i].startDate.month,
-	//			&data->project[i].startDate.day,
-	//			&data->project[i].endDate.year,
-	//			&data->project[i].endDate.month,
-	//			&data->project[i].endDate.day
-	//		);
-	//	}
-	//	for (int i = 0; i < data->awardNum; ++i)
-	//	{
-	//		fscanf(fp, "奖项%d：%s\n颁奖机构：%s\n",
-	//			i + 1,
-	//			data->award[i].title,
-	//			data->award->organization
-	//		);
-	//		for (int j = 0; j < MEMBER_MAX; ++j)
-	//		{
-	//			fscanf(fp, "%s\n", data->award[i].member[j]);
-	//		}
-	//		fscanf(fp, "获奖级别：%s\n获奖日期：%d年%d月%d日\n",
-	//			data->award[i].level,
-	//			&data->award[i].awardDate.year,
-	//			&data->award[i].awardDate.month,
-	//			&data->award[i].awardDate.day
-	//		);
-	//	}
-	//	PushBack(pList, data);
-	//}
-	//fclose(fp);
-
+	while (fscanf(fp, "姓名：%s\n性别：%s\n", data->name, data->gender) != EOF)
+	{
+		fscanf(fp, "论文数：%d\n项目数：%d\n获奖数：%d\n",
+			&data->thesisNum,
+			&data->projectNum,
+			&data->awardNum
+		);
+		fscanf(fp, "------------------------\n");
+		for (int i = 0; i < data->thesisNum; ++i)
+		{
+			fscanf(fp, "论文%*d：《%[^》]", data->thesis[i].title);
+			fscanf(fp, "》\n作者（首行通讯作者）：\n");
+			for (int j = 0; j < MEMBER_MAX; ++j)
+			{
+				fgets(data->thesis[i].author[j], NAME_MAX, fp);
+				//去掉换行符
+				data->thesis[i].author[j][strlen(data->thesis[i].author[j]) - 1] = '\0';
+			}
+			fscanf(fp, "期刊：%s\n页码/卷期/论文编号：%s\n发表日期：%d年%d月%d日\n论文级别：%c\n论文加分：%f\n",
+				data->thesis[i].periodical,
+				data->thesis[i].pagination,
+				&data->thesis[i].publishDate.year,
+				&data->thesis[i].publishDate.month,
+				&data->thesis[i].publishDate.day,
+				&data->thesis[i].grade,
+				&data->thesis[i].score
+			);
+			fscanf(fp, "------------------------\n");
+		}
+		for (int i = 0; i < data->projectNum; ++i)
+		{
+			fscanf(fp, "项目%*d：%s\n", data->project[i].title);
+			fscanf(fp, "成员（首行指导老师）：\n");
+			for (int j = 0; j < MEMBER_MAX; ++j)
+			{
+				fgets(data->project[i].member[j], NAME_MAX, fp);
+				//去掉换行符
+				data->project[i].member[j][strlen(data->project[i].member[j]) - 1] = '\0';
+			}
+			fscanf(fp, "项目编号：%d\n开始日期：%d年%d月%d日\n结束日期：%d年%d月%d日\n",
+				&data->project[i].id,
+				&data->project[i].startDate.year,
+				&data->project[i].startDate.month,
+				&data->project[i].startDate.day,
+				&data->project[i].endDate.year,
+				&data->project[i].endDate.month,
+				&data->project[i].endDate.day
+			);
+			fscanf(fp, "------------------------\n");
+		}
+		for (int i = 0; i < data->awardNum; ++i)
+		{
+			fscanf(fp, "奖项%*d：%s\n颁奖机构：%s\n",
+				data->award[i].title,
+				data->award->organization
+			);
+			fscanf(fp, "获奖人（不唯一）：\n");
+			for (int j = 0; j < MEMBER_MAX; ++j)
+			{
+				fgets(data->award[i].member[j], NAME_MAX, fp);
+				//去掉换行符
+				data->award[i].member[j][strlen(data->award[i].member[j]) - 1] = '\0';
+			}
+			fscanf(fp, "获奖级别：%s\n获奖日期：%d年%d月%d日\n",
+				data->award[i].level,
+				&data->award[i].awardDate.year,
+				&data->award[i].awardDate.month,
+				&data->award[i].awardDate.day
+			);
+			fscanf(fp, "------------------------\n");
+		}
+		fscanf(fp, "========================\n");
+		//复制data并插入链表
+		ListDataType* temp = (ListDataType*)malloc(sizeof(ListDataType));
+		if (temp == NULL)
+		{
+			printf("内存分配失败！\n");
+			exit(EXIT_FAILURE);
+		}
+		memcpy(temp, data, sizeof(ListDataType));
+		PushBack(pList, temp);
+	}
+	fclose(fp);
+	return true;
+}
+bool LoadDataBinary(Node* pList)
+{
 	//二进制文件加载
-	fp = fopen("data.bin", "rb");
+	FILE* fp = fopen("data.bin", "rb");
+	ListDataType* data = (ListDataType*)malloc(sizeof(ListDataType));
+	if (data == NULL)
+	{
+		printf("内存分配失败！\n");
+		exit(EXIT_FAILURE);
+	}
 	if (fp == NULL)
 	{
 		perror("文件打开失败！");
@@ -339,6 +369,4 @@ bool LoadData(Node* pList)
 		PushBack(pList, data);
 	}
 	fclose(fp);
-
-	return true;
 }

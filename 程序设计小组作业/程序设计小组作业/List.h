@@ -33,8 +33,12 @@ void Erase(Node* pList, int pos);
 //保存/加载数据
 bool SaveData(Node* pList);
 bool LoadData(Node* pList);
+bool LoadDataBinary(Node* pList);
 
-#define LoadList(head) \
-	Node* head = (Node*)malloc(sizeof(Node));\
-	InitList(head);\
-	LoadData(head)
+#define LoadList(head)							\
+	Node* head = (Node*)malloc(sizeof(Node));	\
+	InitList(head);								\
+	if (!LoadData(head))						\
+	{											\
+		LoadDataBinary(head);					\
+	}
