@@ -1,10 +1,8 @@
 #pragma once
 
-#include "resource.h"
 #include "EasyX.h"
 #include "HiEasyX.h"
-
-#define ICON 101
+#include "resource1.h"
 
 //³ÌÐò×´Ì¬
 enum State

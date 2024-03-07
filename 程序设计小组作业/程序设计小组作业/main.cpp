@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "visual.h"
+#include "UI.h"
 #include "List.h"
 
 #define CH (char*)
@@ -33,12 +33,10 @@ int main()
 			break;
 		case ADD:
 			break;
-		case EXIT:
-			break;
-		default:
-			break;
 		}
 	}
+
+	//数据结构的保存
 	SaveData(head);
 	MessageBox(window_main.GetHandle(), L"保存成功", L"提示", MB_OK);
 

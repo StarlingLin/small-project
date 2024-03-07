@@ -1,11 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "visual.h"
+#include "UI.h"
 
 //初始化管理系统的窗口
 hiex::Window _InitSysWindow(int width, int height, LPCTSTR title)
 {
-	hiex::SetCustomIcon(MAKEINTRESOURCE(ICON), MAKEINTRESOURCE(ICON));
+	hiex::SetCustomIcon(MAKEINTRESOURCE(IDI_ICON1), MAKEINTRESOURCE(IDI_ICON1));
 	hiex::Window wnd(width, height);
 	wnd.SetTitle(title);
 	EnableResizing(wnd.GetHandle(), false);
@@ -59,4 +59,6 @@ enum State _GetSysMenu(hiex::Window wnd)
 		}
 		Sleep(50);
 	}
+
+	return EXIT;
 }
