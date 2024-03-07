@@ -161,8 +161,13 @@ bool SaveData(Node* pList)
 	while (p != NULL)
 	{
 		fprintf(fp, "姓名：%s\t性别：%s\n", p->data->name, p->data->gender);
+		fprintf(fp, "论文数：%d\t项目数：%d\t获奖数：%d\n", 
+			p->data->thesisNum,
+			p->data->projectNum,
+			p->data->awardNum
+		);
 		fprintf(fp, "------------------------\n");
-		for (int i = 0; i < THESIS_MAX; ++i)
+		for (int i = 0; i < p->data->thesisNum; ++i)
 		{
 			fprintf(fp, "论文%d：《%s》\n", i + 1, p->data->thesis[i].title);
 			fprintf(fp, "作者（首行通讯作者）：\n");
@@ -181,7 +186,7 @@ bool SaveData(Node* pList)
 			);
 			fprintf(fp, "------------------------\n");
 		}
-		for (int i = 0; i < PROJECT_MAX; ++i)
+		for (int i = 0; i < p->data->projectNum; ++i)
 		{
 			fprintf(fp, "项目%d：%s\n", i+1, p->data->project[i].title);
 			fprintf(fp, "成员（首行指导老师）：\n");
@@ -200,7 +205,7 @@ bool SaveData(Node* pList)
 			);
 			fprintf(fp, "------------------------\n");
 		}
-		for (int i = 0; i < AWARD_MAX; ++i)
+		for (int i = 0; i < p->data->awardNum; ++i)
 		{
 			fprintf(fp, "奖项%d：%s\n颁奖机构：%s\n", i + 1, 
 				p->data->award[i].title, 

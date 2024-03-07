@@ -66,6 +66,9 @@ typedef struct Student
 {
 	char name[NAME_MAX];			//姓名
 	char gender[GENDER_MAX];		//性别
+	int thesisNum;					//论文数量
+	int projectNum;					//项目数量
+	int awardNum;					//获奖数量
 	Thesis thesis[THESIS_MAX];		//论文
 	Project project[PROJECT_MAX];	//项目
 	Award award[AWARD_MAX];			//获奖

@@ -81,6 +81,7 @@ Student* AddThesis(Student* stu, Thesis thesis)
 			break;
 		}
 	}
+	stu->thesisNum++;
 	return stu;
 }
 Student* AddProject(Student* stu, Project project)
@@ -94,6 +95,7 @@ Student* AddProject(Student* stu, Project project)
 			break;
 		}
 	}
+	stu->projectNum++;
 	return stu;
 }
 Student* AddAward(Student* stu, Award award)
@@ -107,6 +109,7 @@ Student* AddAward(Student* stu, Award award)
 			break;
 		}
 	}
+	stu->awardNum++;
 	return stu;
 }
 //删除论文、项目、获奖
@@ -118,6 +121,7 @@ Student* DeleteThesis(Student* stu, int pos)
 		stu->thesis[i] = stu->thesis[i + 1];
 	}
 	stu->thesis[THESIS_MAX - 1] = { 0 };
+	stu->thesisNum--;
 	return stu;
 }
 Student* DeleteProject(Student* stu, int pos)
@@ -128,6 +132,7 @@ Student* DeleteProject(Student* stu, int pos)
 		stu->project[i] = stu->project[i + 1];
 	}
 	stu->project[PROJECT_MAX - 1] = { 0 };
+	stu->projectNum--;
 	return stu;
 }
 Student* DeleteAward(Student* stu, int pos)
@@ -138,6 +143,7 @@ Student* DeleteAward(Student* stu, int pos)
 		stu->award[i] = stu->award[i + 1];
 	}
 	stu->award[AWARD_MAX - 1] = { 0 };
+	stu->awardNum--;
 	return stu;	
 }
 //按名称查询论文、项目、获奖（返回位置）
