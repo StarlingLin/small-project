@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "UI.h"
+#include "md5.h"
+
 
 //登录界面
 void _LoginUI(int width, int height, LPCTSTR title)
@@ -41,8 +43,18 @@ void _GetLoginMenu(hiex::Window wnd)
 	{
 		if (btn_login.IsClicked())
 		{
-			//密码正确则退出循环
-			if (wcscmp(edit_password.GetText().c_str(), L"123456") == 0)
+			//wchar_t*转uint8_t*
+			unsigned char password[33] = { 0 };
+			wcstombs((char*)password, edit_password.GetText().c_str(), 33);
+			//MD5加密
+			unsigned char md5[16] = { 0 };
+			MD5_CTX ctx;
+			MD5Init(&ctx);
+			MD5Update(&ctx, password, strlen((char*)password));
+			MD5Final(&ctx, md5);
+			unsigned char answer[16] = { 0xe1,0x0a,0xdc,0x39,0x49,0xba,0x59,0xab,0xbe,0x56,0xe0,0x57,0xf2,0x0f,0x88,0x3e };
+			//密码正确则退出
+			if (!memcmp(answer, md5, 16))
 			{
 				break;
 			}
