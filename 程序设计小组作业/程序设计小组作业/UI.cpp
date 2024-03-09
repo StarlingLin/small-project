@@ -1,8 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "UI.h"
-#include "md5.h"
-
 
 //登录界面
 void _LoginUI(int width, int height, LPCTSTR title)
@@ -23,7 +21,7 @@ void _DrawLoginMenu(hiex::Window wnd, int width, int height)
 	wnd.BindCanvas(&canvas);
 	canvas.SetTextWeight(1000);
 	canvas.SetTextStyle(25, 0, L"幼圆");
-	RECT rect = {0, 0, width, height/5};
+	RECT rect = {0, 0, width, height/3};
 	canvas.CenterText(L"登录", rect);
 	wnd.Redraw();
 }
@@ -127,4 +125,97 @@ enum State _GetSysMenu(hiex::Window wnd)
 	}
 
 	return EXIT;
+}
+
+//添加学生界面
+void _AddStudentUI(Node* head)
+{
+	//初始化添加学生窗口
+	hiex::Window window_addstu = _InitSysWindow(300, 200, L"直接添加学生");
+	//绘制添加学生界面
+	_DrawAddStudentMenu(window_addstu, 300, 200);
+	//监控按钮确认添加
+	_GetAddStudentMenu(window_addstu, head);
+
+	//tobecontinued
+	system("pause");
+}
+
+//绘制添加学生界面
+void _DrawAddStudentMenu(hiex::Window wnd, int width, int height)
+{
+	hiex::Canvas canvas;
+	wnd.BindCanvas(&canvas);
+	//上方进度条
+	canvas.Line(50, 50, 250, 50);
+	canvas.SolidCircle(50, 50, 5, true, BLACK);
+	canvas.FillCircle(150, 50, 5, true, BLACK, WHITE);
+	canvas.FillCircle(250, 50, 5, true, BLACK, WHITE);
+	canvas.SetTextWeight(800);
+	canvas.SetTextStyle(15, 0, L"仿宋");
+	RECT rect1 = {0, 20, 100, 40};
+	RECT rect2 = {100, 20, 200, 40};
+	RECT rect3 = {200, 20, 300, 40};
+	canvas.CenterText(L"添加学生", rect1);
+	canvas.CenterText(L"添加素质项目", rect2);
+	canvas.CenterText(L"完成添加", rect3);
+
+	//下方输入框上方提示
+	RECT rect_name = {50, 70, 100, 90};
+	RECT rect_gender = {50, 105, 100, 125};
+	canvas.CenterText(L"姓名：", rect_name);
+	canvas.CenterText(L"性别：", rect_gender);
+
+	wnd.Redraw();
+}
+
+//监控按钮添加学生
+Student* _GetAddStudentMenu(hiex::Window wnd, Node* head)
+{
+	//输入框
+	hiex::SysEdit edit_name;
+	edit_name.Create(wnd.GetHandle(), 100, 70, 155, 20, L"");
+	hiex::SysEdit edit_gender;
+	edit_gender.Create(wnd.GetHandle(), 100, 105, 155, 20, L"");
+	//确认添加按钮
+	hiex::SysButton btn_add;
+	btn_add.Create(wnd.GetHandle(), 50, 140, 200, 50, L"确认添加");
+	wnd.Redraw();
+
+	//监控按钮
+	while (wnd.IsAlive())
+	{
+		if (btn_add.IsClicked())
+		{
+			//添加学生
+			Student* p = AddStudent(head);
+			//检验输入长度
+			if (2 * edit_name.GetText().length() >= NAME_MAX)
+			{
+				MessageBox(wnd.GetHandle(), L"姓名过长", L"错误", MB_OK);
+				continue;
+			}
+			if (2 * edit_gender.GetText().length() >= GENDER_MAX)
+			{
+				MessageBox(wnd.GetHandle(), L"性别过长", L"错误", MB_OK);
+				continue;
+			}
+			//修改学生信息
+			/*wchar_t name1[NAME_MAX];
+			wchar_t gender1[GENDER_MAX];
+			edit_name.GetText().copy(name1, edit_name.GetText().length());
+			edit_gender.GetText().copy(gender1, edit_gender.GetText().length());*/
+			//BUG
+			char name[NAME_MAX] = { 0 };
+			char gender[GENDER_MAX] = { 0 };
+			wcstombs(name, edit_name.GetText().c_str(), NAME_MAX);
+			wcstombs(gender, edit_gender.GetText().c_str(), GENDER_MAX);
+			ModifyStudent(p, name, gender, NULL, NULL, NULL);
+			//退出
+			wnd.CloseWindow();
+			return p;
+		}
+		Sleep(50);
+	}
+	return NULL;
 }
