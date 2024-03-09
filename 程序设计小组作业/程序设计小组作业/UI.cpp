@@ -70,9 +70,10 @@ void _GetLoginMenu(hiex::Window wnd)
 	{
 		wnd.CloseWindow();
 	}
-	//密码错误则重新登录
+	//中断错误
 	else
 	{
+		MessageBox(NULL, L"意外中断", L"错误", MB_OK);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -193,6 +194,7 @@ Student* _GetAddStudentMenu(hiex::Window wnd, Node* head)
 	btn_add.Create(wnd.GetHandle(), 50, 140, 200, 50, L"确认添加");
 	wnd.Redraw();
 
+	bool flag = false;
 	//监控按钮
 	while (wnd.IsAlive())
 	{
@@ -228,10 +230,16 @@ Student* _GetAddStudentMenu(hiex::Window wnd, Node* head)
 			wcstombs(gender, edit_gender.GetText().c_str(), GENDER_MAX);
 			ModifyStudent(p, name, gender, NULL, NULL, NULL);
 			//退出
+			flag = true;
 			wnd.CloseWindow();
 			return p;
 		}
 		Sleep(50);
+	}
+	if (flag == false)
+	{
+		MessageBox(NULL, L"意外中断", L"错误", MB_OK);
+		exit(EXIT_FAILURE);
 	}
 	return NULL;
 }

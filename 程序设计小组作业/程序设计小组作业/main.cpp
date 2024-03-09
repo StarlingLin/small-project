@@ -33,6 +33,10 @@ int main()
 
 	while (state)
 	{
+		if (window_main.IsAlive() == false)
+		{
+			exit(EXIT_FAILURE);
+		}
 		switch (state)
 		{
 		case MENU:
