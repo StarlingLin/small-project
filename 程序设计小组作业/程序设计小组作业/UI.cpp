@@ -201,11 +201,6 @@ Student* _GetAddStudentMenu(hiex::Window wnd, Node* head)
 				continue;
 			}
 			//修改学生信息
-			/*wchar_t name1[NAME_MAX];
-			wchar_t gender1[GENDER_MAX];
-			edit_name.GetText().copy(name1, edit_name.GetText().length());
-			edit_gender.GetText().copy(gender1, edit_gender.GetText().length());*/
-			//BUG
 			char name[NAME_MAX] = { 0 };
 			char gender[GENDER_MAX] = { 0 };
 			wcstombs(name, edit_name.GetText().c_str(), NAME_MAX);

@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
+#include <locale.h>
 #include "UI.h"
 
 #define CH (char*)
@@ -8,6 +9,8 @@
 
 int main()
 {
+	setlocale(LC_ALL, "chs");
+
 	enum State state = MENU;	//³ÌÐò×´Ì¬
 
 	//µÇÂ¼½çÃæ
