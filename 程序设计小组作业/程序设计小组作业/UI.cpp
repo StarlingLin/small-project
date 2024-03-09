@@ -200,6 +200,16 @@ Student* _GetAddStudentMenu(hiex::Window wnd, Node* head)
 				MessageBox(wnd.GetHandle(), L"性别过长", L"错误", MB_OK);
 				continue;
 			}
+			if (edit_name.GetText().length() == 0)
+			{
+				MessageBox(wnd.GetHandle(), L"姓名不能为空", L"错误", MB_OK);
+				continue;
+			}
+			if (edit_gender.GetText().length() == 0)
+			{
+				MessageBox(wnd.GetHandle(), L"性别不能为空", L"错误", MB_OK);
+				continue;
+			}
 			//修改学生信息
 			char name[NAME_MAX] = { 0 };
 			char gender[GENDER_MAX] = { 0 };
