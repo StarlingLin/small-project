@@ -11,7 +11,6 @@ void _LoginUI(int width, int height, LPCTSTR title)
 	_DrawLoginMenu(window_login, width, height);
 	//监控按钮确认登录
 	_GetLoginMenu(window_login);
-	window_login.CloseWindow();
 }
 //绘制登录界面
 void _DrawLoginMenu(hiex::Window wnd, int width, int height)
@@ -36,6 +35,7 @@ void _GetLoginMenu(hiex::Window wnd)
 	btn_login.Create(wnd.GetHandle(), 25, 80, 150, 50, L"登录");
 	wnd.Redraw();
 
+	bool flag = false;	//密码正确标志
 	//监控按钮
 	while (wnd.IsAlive())
 	{
@@ -54,6 +54,7 @@ void _GetLoginMenu(hiex::Window wnd)
 			//密码正确则退出
 			if (!memcmp(answer, md5, 16))
 			{
+				flag = true;
 				break;
 			}
 			//密码错误则提示
@@ -63,6 +64,16 @@ void _GetLoginMenu(hiex::Window wnd)
 			}
 		}
 		Sleep(50);
+	}
+	//密码正确则退出
+	if (flag)
+	{
+		wnd.CloseWindow();
+	}
+	//密码错误则重新登录
+	else
+	{
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -134,8 +145,8 @@ void _AddStudentUI(Node* head)
 	hiex::Window window_addstu = _InitSysWindow(300, 200, L"直接添加学生");
 	//绘制添加学生界面
 	_DrawAddStudentMenu(window_addstu, 300, 200);
-	//监控按钮确认添加
-	_GetAddStudentMenu(window_addstu, head);
+	//监控按钮确认添加，进入添加项目界面
+	_AddTermsUI(_GetAddStudentMenu(window_addstu, head));
 
 	//tobecontinued
 	system("pause");
@@ -223,4 +234,47 @@ Student* _GetAddStudentMenu(hiex::Window wnd, Node* head)
 		Sleep(50);
 	}
 	return NULL;
+}
+
+//添加素质项目界面
+void _AddTermsUI(Student* stu)
+{
+	//初始化添加素质项目窗口
+	hiex::Window window_addterms = _InitSysWindow(500, 400, L"直接添加学生");
+	//绘制添加素质项目界面
+	_DrawAddTermsMenu(window_addterms, 500, 400);
+	//监控按钮确认添加，进入完成添加界面
+	//_GetAddTermsMenu(window_addterms, stu);
+
+	//tobecontinued
+	system("pause");
+}
+
+//绘制添加素质项目界面
+void _DrawAddTermsMenu(hiex::Window wnd, int width, int height)
+{
+	hiex::Canvas canvas;
+	wnd.BindCanvas(&canvas);
+	//上方进度条
+	canvas.Line(150, 50, 350, 50);
+	canvas.FillCircle(150, 50, 5, true, BLACK, WHITE);
+	canvas.SolidCircle(250, 50, 5, true, BLACK);
+	canvas.FillCircle(350, 50, 5, true, BLACK, WHITE);
+	canvas.SetTextWeight(800);
+	canvas.SetTextStyle(15, 0, L"仿宋");
+	RECT rect1 = {100, 20, 200, 40};
+	RECT rect2 = {200, 20, 300, 40};
+	RECT rect3 = {300, 20, 400, 40};
+	canvas.CenterText(L"添加学生", rect1);
+	canvas.CenterText(L"添加素质项目", rect2);
+	canvas.CenterText(L"完成添加", rect3);
+
+	//表格
+	RECT rect_table = {50, 70, 450, 320};
+	canvas.Rectangle(rect_table);
+	hiex::Canvas canvas_table;
+	
+
+
+	wnd.Redraw();
 }

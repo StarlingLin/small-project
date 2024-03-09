@@ -36,3 +36,7 @@ void _AddStudentUI(Node* head);
 void _DrawAddStudentMenu(hiex::Window wnd, int width, int height);
 //监控按钮添加学生
 Student* _GetAddStudentMenu(hiex::Window wnd, Node* head);
+//添加项目界面
+void _AddTermsUI(Student* stu);
+//绘制添加项目界面
+void _DrawAddTermsMenu(hiex::Window wnd, int width, int height);
