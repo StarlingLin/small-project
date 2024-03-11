@@ -282,7 +282,7 @@ void _DrawAddTermsMenu(hiex::Window wnd, int width, int height)
 	canvas.Rectangle(rect_table);
 	hiex::Canvas canvas_table;
 	
-
-
+	
+	
 	wnd.Redraw();
 }

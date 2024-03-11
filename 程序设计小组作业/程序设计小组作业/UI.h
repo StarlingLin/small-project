@@ -40,3 +40,5 @@ Student* _GetAddStudentMenu(hiex::Window wnd, Node* head);
 void _AddTermsUI(Student* stu);
 //绘制添加项目界面
 void _DrawAddTermsMenu(hiex::Window wnd, int width, int height);
+//绘制添加学生表格
+void _DrawAddStudentTable(hiex::Window wnd, RECT rect);
